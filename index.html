@@ -37,7 +37,63 @@
 </head>
 
 <body>
+        <!-- Màn hình chào Intro giống video -->
+    <div id="preloader">
+        <div class="intro-content">
+            <div class="intro-icons">
+                <span>&lt;/&gt;</span>
+                <span>◉</span>
+                <span>⚙</span>
+            </div>
+            <h1 class="intro-title">Welcome to my<br>Portfolio Website</h1>
+            <p class="intro-sub">DANG DINH NGUYEN</p>
+        </div>
+    </div>
 
+    <!-- Trong section .hero -->
+    <section class="hero dark-grid-bg">
+        <div class="container hero-grid">
+            <!-- Cột trái: Thông tin -->
+            <div class="hero-content">
+                <span class="hero-eyebrow">● AVAILABLE FOR WORK</span>
+                <h1 class="hero-title">
+                    Backend<br><span>Developer</span>
+                </h1>
+                
+                <!-- Hiệu ứng text nhảy từ động -->
+                <div class="hero-role">
+                    <span id="typewriter-text">Python / FastAPI</span>
+                </div>
+
+                <p class="hero-description">
+                    Xây dựng hệ thống backend hiệu năng cao, cơ sở dữ liệu tối ưu và dịch vụ đám mây an toàn.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="projects.html" class="button button-primary">Xem dự án của tôi →</a>
+                    <a href="assets/cv.pdf" class="button button-secondary" download>Tải CV ↓</a>
+                </div>
+            </div>
+
+            <!-- Cột phải: Thẻ ID Card treo đung đưa -->
+            <div class="hero-visual">
+                <div class="lanyard-wrapper" id="lanyardCard">
+                    <div class="lanyard-strap"></div>
+                    <div class="lanyard-clip"></div>
+                    <div class="id-card" id="idCard">
+                        <img src="assets/image/avatar.jpg" alt="Avatar" class="id-card-photo">
+                        <div class="id-card-footer">
+                            <div>
+                                <div class="id-card-name">Đặng Đình Nguyên</div>
+                                <div class="id-card-role">Backend Engineer</div>
+                            </div>
+                            <span class="status-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- =========================
          HEADER
     ========================== -->
@@ -869,6 +925,7 @@
     <!-- JavaScript -->
     <!-- Đổi dòng cuối trước </body> -->
     <script type="module" src="js/main.js"></script>
+    <script src="js/animations.js"></script>
 
 </body>
 </html>
