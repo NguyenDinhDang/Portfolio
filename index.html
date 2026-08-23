@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Đặng Đình Nguyên — Backend Developer và Software Developer. Xây hệ thống, giải quyết vấn đề thực tế.">
+  <title>Đặng Đình Nguyên — Backend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Đặng Đình Nguyên</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false">
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+      </button>
+      <nav class="main-nav" id="site-nav" aria-label="Menu chính">
+        <ul>
+          <li><a href="index.html"          class="nav-link">Trang chủ</a></li>
+          <li><a href="page/about.html"     class="nav-link">Về tôi</a></li>
+          <li><a href="page/projects.html"  class="nav-link">Dự án</a></li>
+          <li><a href="page/services.html"  class="nav-link">Dịch vụ</a></li>
+          <li><a href="page/experience.html" class="nav-link">Kinh nghiệm</a></li>
+          <li><a href="page/contact.html"   class="nav-link">Liên hệ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════
+         HERO — Editorial composition
+         Layout: name (1fr) + portrait (220px), aligned bottom
+         Separated by a rule. Below: roles | statement + CTA
+         NOT: eyebrow → name → bio → icons → button
+         ════════════════════════════════════════════════════ -->
+    <section class="hero">
+      <div class="container">
+
+        <!-- Top: name alongside portrait -->
+        <div class="hero-top reveal">
+          <h1 class="hero-name">Đặng Đình Nguyên</h1>
+          <figure class="hero-portrait">
+            <img
+              src="public/avatar.jpg"
+              alt="Đặng Đình Nguyên"
+              loading="eager"
+              width="220"
+              height="293"
+            >
+          </figure>
+        </div>
+
+        <!-- Bottom: roles | statement + actions -->
+        <div class="hero-bottom reveal">
+          <div class="hero-roles">
+            <p>Backend Developer</p>
+            <p>Software Developer</p>
+          </div>
+          <div class="hero-body">
+            <p class="hero-statement">
+              Xây hệ thống có thể hoạt động ngoài đời thực.<br>
+              Giải quyết vấn đề bằng code có thể đọc lại được.
+            </p>
+            <div class="hero-actions">
+              <a href="page/projects.html" class="link-arrow">
+                Xem công việc <span class="arr" aria-hidden="true">→</span>
+              </a>
+              <a href="page/about.html" class="link-muted">Về tôi</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section class="work-section section">
+      <div class="container">
+
+        <div class="work-header">
+          <span class="mono-label">Công việc gần đây</span>
+          <a href="page/projects.html" class="link-sm">Xem tất cả →</a>
+        </div>
+
+        <ol class="work-list reveal-stagger">
+
+          <li class="work-item">
+            <span class="work-num" aria-label="Dự án 01">01</span>
+            <div class="work-content">
+              <h2 class="work-title">[Tên dự án]</h2>
+              <p class="work-desc">Mô tả ngắn về vấn đề mà dự án này giải quyết.</p>
+            </div>
+            <span class="work-stack" aria-hidden="true">Node.js · MySQL · React</span>
+          </li>
+
+          <li class="work-item">
+            <span class="work-num" aria-label="Dự án 02">02</span>
+            <div class="work-content">
+              <h2 class="work-title">[Tên dự án]</h2>
+              <p class="work-desc">Mô tả ngắn về vấn đề mà dự án này giải quyết.</p>
+            </div>
+            <span class="work-stack" aria-hidden="true">PHP · Laravel · PostgreSQL</span>
+          </li>
+
+        </ol>
+
+      </div>
+    </section>
+
+    <!-- NEXT PAGE -->
+    <div class="next-page">
+      <div class="container">
+        <div class="reveal">
+          <span class="next-hint">Tiếp theo</span>
+          <a href="page/about.html" class="next-link">
+            Về tôi <span class="arr" aria-hidden="true">→</span>
+          </a>
+          <p class="next-sub">Cách tôi nghĩ và làm việc.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Đặng Đình Nguyên</p>
+      <nav class="footer-nav" aria-label="Liên kết ngoài">
+        <a href="#" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="#" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="#" class="footer-link" target="_blank" rel="noopener noreferrer">Zalo</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script defer src="js/navigation.js"></script>
+  <script defer src="js/transitions.js"></script>
+  <script defer src="js/main.js"></script>
+</body>
+</html>

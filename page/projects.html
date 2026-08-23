@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dự án của Đặng Đình Nguyên — những hệ thống và ứng dụng đã xây dựng.">
+  <title>Dự Án — Đặng Đình Nguyên</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">Đặng Đình Nguyên</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false">
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+      </button>
+      <nav class="main-nav" id="site-nav" aria-label="Menu chính">
+        <ul>
+          <li><a href="../index.html"    class="nav-link">Trang chủ</a></li>
+          <li><a href="about.html"       class="nav-link">Về tôi</a></li>
+          <li><a href="projects.html"    class="nav-link">Dự án</a></li>
+          <li><a href="services.html"    class="nav-link">Dịch vụ</a></li>
+          <li><a href="experience.html"  class="nav-link">Kinh nghiệm</a></li>
+          <li><a href="contact.html"     class="nav-link">Liên hệ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PAGE HEADER -->
+    <header class="page-hero">
+      <div class="container reveal">
+        <span class="page-kicker">03 / Dự án</span>
+        <h1 class="page-title">Những thứ<br>tôi đã xây.</h1>
+        <p class="page-lead">
+          Mỗi dự án bắt đầu từ một vấn đề thực. Mỗi quyết định kỹ thuật
+          đều có lý do — không phải vì "nghe hay" mà vì phù hợp với bài toán.
+        </p>
+      </div>
+    </header>
+
+    <!-- PROJECTS LIST -->
+    <section class="section">
+      <div class="container">
+        <ol class="projects-list reveal-stagger">
+
+          <li class="project-row">
+            <span class="proj-num" aria-label="Dự án 01">01</span>
+            <div class="proj-content">
+              <h2 class="proj-name">[Tên dự án]</h2>
+              <p class="proj-desc">
+                Mô tả vấn đề mà dự án này giải quyết, cách tiếp cận kỹ thuật
+                và những gì được học sau khi xây xong.
+                Sẽ được cập nhật với dự án thực tế.
+              </p>
+              <div class="proj-stack">
+                <span class="chip">Node.js</span>
+                <span class="chip">Express</span>
+                <span class="chip">MySQL</span>
+                <span class="chip">React</span>
+              </div>
+            </div>
+            <div class="proj-link">
+              <a href="#" aria-label="GitHub — [Tên dự án]">GitHub →</a>
+            </div>
+          </li>
+
+          <li class="project-row">
+            <span class="proj-num" aria-label="Dự án 02">02</span>
+            <div class="proj-content">
+              <h2 class="proj-name">[Tên dự án]</h2>
+              <p class="proj-desc">
+                Mô tả vấn đề mà dự án này giải quyết, cách tiếp cận kỹ thuật
+                và những gì được học sau khi xây xong.
+                Sẽ được cập nhật với dự án thực tế.
+              </p>
+              <div class="proj-stack">
+                <span class="chip">PHP</span>
+                <span class="chip">Laravel</span>
+                <span class="chip">PostgreSQL</span>
+              </div>
+            </div>
+            <div class="proj-link">
+              <a href="#" aria-label="GitHub — [Tên dự án]">GitHub →</a>
+            </div>
+          </li>
+
+          <li class="project-row">
+            <span class="proj-num" aria-label="Dự án 03">03</span>
+            <div class="proj-content">
+              <h2 class="proj-name">[Tên dự án]</h2>
+              <p class="proj-desc">
+                Mô tả vấn đề mà dự án này giải quyết, cách tiếp cận kỹ thuật
+                và những gì được học sau khi xây xong.
+                Sẽ được cập nhật với dự án thực tế.
+              </p>
+              <div class="proj-stack">
+                <span class="chip">Python</span>
+                <span class="chip">FastAPI</span>
+                <span class="chip">Docker</span>
+              </div>
+            </div>
+            <div class="proj-link">
+              <a href="#" aria-label="GitHub — [Tên dự án]">GitHub →</a>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- NEXT PAGE -->
+    <div class="next-page">
+      <div class="container">
+        <div class="reveal">
+          <span class="next-hint">Tiếp theo</span>
+          <a href="services.html" class="next-link">
+            Dịch vụ <span class="arr" aria-hidden="true">→</span>
+          </a>
+          <p class="next-sub">Bạn cần xây một thứ gì đó tương tự?</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Đặng Đình Nguyên</p>
+      <nav class="footer-nav" aria-label="Liên kết ngoài">
+        <a href="#" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="#" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="#" class="footer-link" target="_blank" rel="noopener noreferrer">Zalo</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script defer src="../js/navigation.js"></script>
+  <script defer src="../js/transitions.js"></script>
+  <script defer src="../js/main.js"></script>
+</body>
+</html>
