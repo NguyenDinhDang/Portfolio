@@ -1,6 +1,15 @@
 ```html
 <!DOCTYPE html>
 <html lang="vi">
+    <!-- Thêm ngay trước </head> -->
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+}
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -858,7 +867,8 @@
 
 
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
+    <!-- Đổi dòng cuối trước </body> -->
+    <script type="module" src="js/main.js"></script>
 
 </body>
 </html>
