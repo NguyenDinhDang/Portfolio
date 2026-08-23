@@ -1,0 +1,338 @@
+/* ========================================
+   NAVBAR
+   ======================================== */
+
+.site-header {
+    position: relative;
+    z-index: 100;
+
+    width: 100%;
+}
+
+.navbar {
+    width: min(
+        calc(100% - 48px),
+        var(--container)
+    );
+
+    height: 80px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* ========================================
+   LOGO
+   ======================================== */
+
+.logo,
+.nav-logo {
+    display: inline-flex;
+    align-items: center;
+
+    font-size: 30px;
+    font-weight: 800;
+
+    line-height: 1;
+
+    letter-spacing: -0.06em;
+
+    color: var(--text);
+
+    position: relative;
+}
+
+.logo::after,
+.nav-logo::after {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    margin-left: 3px;
+    margin-top: 17px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+}
+
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+
+    height: 100%;
+}
+
+.nav-links a {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    height: 100%;
+
+    color: var(--text);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition:
+        color var(--transition-fast);
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+
+/* Active link */
+
+.nav-links a.active {
+    color: var(--text);
+}
+
+.nav-links a.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 18px;
+
+    height: 2px;
+
+    border-radius: 999px;
+
+    background: var(--accent);
+
+    transform-origin: center;
+
+    transition:
+        transform var(--transition);
+}
+
+
+/* ========================================
+   HEADER RIGHT
+   ======================================== */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+/* ========================================
+   CONTACT BUTTON
+   ======================================== */
+
+.nav-contact,
+.navbar .button-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    min-height: 46px;
+
+    padding: 0 20px;
+
+    border-radius: 999px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow:
+        0 8px 24px rgba(17, 24, 39, 0.12);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+}
+
+.nav-contact:hover,
+.navbar .button-primary:hover {
+    background: #1f2937;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(17, 24, 39, 0.18);
+}
+
+
+/* ========================================
+   ARROW
+   ======================================== */
+
+.nav-contact span,
+.nav-contact .arrow {
+    display: inline-flex;
+
+    transition:
+        transform var(--transition);
+}
+
+.nav-contact:hover span,
+.nav-contact:hover .arrow {
+    transform: translateX(3px);
+}
+
+
+/* ========================================
+   THEME BUTTON
+   ======================================== */
+
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.6);
+
+    color: var(--text);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        border-color var(--transition);
+}
+
+.theme-toggle:hover {
+    transform: rotate(12deg);
+
+    background: #ffffff;
+
+    border-color:
+        rgba(17, 24, 39, 0.16);
+}
+
+
+/* ========================================
+   MOBILE MENU
+   ======================================== */
+
+.menu-toggle {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.7);
+
+    color: var(--text);
+}
+
+
+/* ========================================
+   GLASS HEADER
+   ======================================== */
+
+.site-header.scrolled .navbar {
+    height: 70px;
+}
+
+.site-header.scrolled {
+    position: sticky;
+    top: 0;
+
+    background:
+        rgba(248, 249, 253, 0.78);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid var(--border-soft);
+}
+
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        width: min(
+            calc(100% - 32px),
+            var(--container)
+        );
+    }
+
+    .nav-links {
+        gap: 20px;
+    }
+
+    .nav-contact {
+        padding-inline: 16px;
+    }
+}
+
+
+@media (max-width: 760px) {
+
+    .navbar {
+        height: 70px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-actions {
+        gap: 8px;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+    }
+
+    .nav-contact {
+        display: none;
+    }
+
+    .logo,
+    .nav-logo {
+        font-size: 27px;
+    }
+}
