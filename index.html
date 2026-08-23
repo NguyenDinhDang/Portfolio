@@ -1,0 +1,865 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Portfolio của Đặng Đình Nguyên — Backend Developer."
+    >
+
+    <title>Đặng Đình Nguyên — Backend Developer</title>
+
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/experience.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/skills.css">
+    <link rel="stylesheet" href="css/variables.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="site-header">
+        <nav class="navbar container">
+
+            <!-- Logo -->
+            <a href="index.html" class="logo" aria-label="Trang chủ">
+                N<span>.</span>
+            </a>
+
+            <!-- Navigation -->
+            <div class="nav-links">
+
+                <a href="index.html" class="nav-link active">
+                    Trang chủ
+                </a>
+
+                <a href="about.html" class="nav-link">
+                    Giới thiệu
+                </a>
+
+                <a href="projects.html" class="nav-link">
+                    Dự án
+                </a>
+
+                <a href="experience.html" class="nav-link">
+                    Kinh nghiệm
+                </a>
+
+                <a href="blog.html" class="nav-link">
+                    Blog
+                </a>
+
+                <a href="contact.html" class="nav-link">
+                    Liên hệ
+                </a>
+
+            </div>
+
+            <!-- Theme -->
+            <button
+                class="theme-toggle"
+                type="button"
+                aria-label="Đổi giao diện sáng tối"
+            >
+                <span class="theme-icon">☼</span>
+            </button>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- =========================
+             HERO
+        ========================== -->
+        <section class="hero">
+
+            <div class="container hero-grid">
+
+                <!-- Hero Content -->
+                <div class="hero-content">
+
+                    <span class="hero-eyebrow">
+                        Xin chào! Tôi là
+                    </span>
+
+                    <h1 class="hero-title">
+                        Đặng Đình
+                        <span>Nguyễn</span>
+                    </h1>
+
+                    <div class="hero-role">
+                        <span>&lt;</span>
+                        Backend Developer
+                        <span>/&gt;</span>
+                    </div>
+
+                    <p class="hero-description">
+                        Mình xây dựng các hệ thống backend mạnh mẽ,
+                        tối ưu hiệu năng và luôn học hỏi để tạo ra
+                        những sản phẩm có giá trị.
+                    </p>
+
+                    <!-- CTA -->
+                    <div class="hero-actions">
+
+                        <a
+                            href="projects.html"
+                            class="button button-primary"
+                        >
+                            Xem dự án của tôi
+                            <span aria-hidden="true">→</span>
+                        </a>
+
+                        <a
+                            href="assets/cv.pdf"
+                            class="button button-secondary"
+                            download
+                        >
+                            Tải CV
+                            <span aria-hidden="true">↓</span>
+                        </a>
+
+                    </div>
+
+                    <!-- Social -->
+                    <div class="hero-socials">
+
+                        <a
+                            href="#"
+                            class="social-link"
+                            aria-label="GitHub"
+                        >
+                            GitHub
+                        </a>
+
+                        <a
+                            href="#"
+                            class="social-link"
+                            aria-label="LinkedIn"
+                        >
+                            LinkedIn
+                        </a>
+
+                        <a
+                            href="mailto:your-email@example.com"
+                            class="social-link"
+                            aria-label="Email"
+                        >
+                            Email
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Three.js Visual -->
+                <div class="hero-visual">
+
+                    <div
+                        id="three-container"
+                        class="three-container"
+                        aria-label="Three.js interactive visualization"
+                    >
+                        <!-- Three.js canvas sẽ được render vào đây -->
+                    </div>
+
+                    <div class="three-badge">
+                        <span class="status-dot"></span>
+                        three.js
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator">
+
+                <span class="scroll-text">
+                    Scroll để khám phá
+                </span>
+
+                <span class="scroll-arrow">
+                    ↓
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ABOUT PREVIEW
+        ========================== -->
+        <section class="about-preview section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        Giới thiệu
+                    </span>
+
+                    <h2>
+                        Mình là một lập trình viên
+                        yêu thích
+                        <span>giải quyết vấn đề.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <!-- Image -->
+                    <div class="about-image">
+
+                        <img
+                            src="assets/images/profile.jpg"
+                            alt="Đặng Đình Nguyễn"
+                            loading="lazy"
+                        >
+
+                        <div class="experience-badge">
+
+                            <strong>3+</strong>
+
+                            <span>
+                                Năm học tập
+                                & phát triển
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Content -->
+                    <div class="about-content">
+
+                        <p class="about-intro">
+                            Mình bắt đầu hành trình lập trình từ những
+                            bài học đầu tiên và nhanh chóng bị cuốn hút
+                            bởi sức mạnh của công nghệ.
+                        </p>
+
+                        <p>
+                            Mình đặc biệt quan tâm đến Backend Development,
+                            Database, hệ thống phân tán và những công nghệ
+                            mới có thể giúp biến một ý tưởng thành sản phẩm
+                            thực tế.
+                        </p>
+
+
+                        <!-- Stats -->
+                        <div class="stats-grid">
+
+                            <div class="stat-card">
+
+                                <span class="stat-icon">
+                                    ◉
+                                </span>
+
+                                <strong>10+</strong>
+
+                                <span>
+                                    Dự án đã hoàn thành
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-card">
+
+                                <span class="stat-icon">
+                                    ◇
+                                </span>
+
+                                <strong>5+</strong>
+
+                                <span>
+                                    Công nghệ sử dụng
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-card">
+
+                                <span class="stat-icon">
+                                    ♡
+                                </span>
+
+                                <strong>100%</strong>
+
+                                <span>
+                                    Tận tâm với công việc
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            href="about.html"
+                            class="text-link"
+                        >
+                            Tìm hiểu thêm về tôi
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FEATURED PROJECTS
+        ========================== -->
+        <section class="featured-projects section">
+
+            <div class="container">
+
+                <div class="section-header-row">
+
+                    <div>
+
+                        <span class="section-label">
+                            Dự án nổi bật
+                        </span>
+
+                        <h2>
+                            Những thứ mình
+                            <span>đã xây dựng.</span>
+                        </h2>
+
+                    </div>
+
+                    <a
+                        href="projects.html"
+                        class="text-link"
+                    >
+                        Xem tất cả dự án
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+
+                <div class="projects-grid">
+
+                    <!-- Project 01 -->
+                    <article class="project-card">
+
+                        <div class="project-image">
+
+                            <img
+                                src="assets/images/project-learnos.jpg"
+                                alt="AI Learning Assistant"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <div class="project-meta">
+                                <span>01</span>
+                                <span>AI / Backend</span>
+                            </div>
+
+                            <h3>
+                                AI Learning Assistant
+                            </h3>
+
+                            <p>
+                                Nền tảng học tập thông minh ứng dụng
+                                AI giúp người dùng học hiệu quả hơn
+                                thông qua tài liệu và lộ trình cá nhân hóa.
+                            </p>
+
+                            <div class="technology-list">
+
+                                <span>FastAPI</span>
+                                <span>PostgreSQL</span>
+                                <span>React</span>
+                                <span>Gemini AI</span>
+
+                            </div>
+
+                            <a
+                                href="project-detail.html"
+                                class="project-link"
+                            >
+                                Xem chi tiết
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Project 02 -->
+                    <article class="project-card">
+
+                        <div class="project-image">
+
+                            <img
+                                src="assets/images/project-devflow.jpg"
+                                alt="DevFlow"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <div class="project-meta">
+                                <span>02</span>
+                                <span>Web Application</span>
+                            </div>
+
+                            <h3>
+                                DevFlow
+                            </h3>
+
+                            <p>
+                                Công cụ quản lý dự án dành cho
+                                developer team, hỗ trợ theo dõi tiến độ,
+                                phân công công việc và thống kê hiệu suất.
+                            </p>
+
+                            <div class="technology-list">
+
+                                <span>Next.js</span>
+                                <span>MongoDB</span>
+                                <span>TailwindCSS</span>
+
+                            </div>
+
+                            <a
+                                href="projects.html"
+                                class="project-link"
+                            >
+                                Xem chi tiết
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Project 03 -->
+                    <article class="project-card">
+
+                        <div class="project-image">
+
+                            <img
+                                src="assets/images/project-portfolio.jpg"
+                                alt="Portfolio v2"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <div class="project-meta">
+                                <span>03</span>
+                                <span>Creative Development</span>
+                            </div>
+
+                            <h3>
+                                Portfolio v2
+                            </h3>
+
+                            <p>
+                                Phiên bản portfolio cá nhân với thiết kế
+                                tối giản, hiệu ứng chuyển động và trải nghiệm
+                                người dùng hiện đại.
+                            </p>
+
+                            <div class="technology-list">
+
+                                <span>HTML</span>
+                                <span>Three.js</span>
+                                <span>JavaScript</span>
+
+                            </div>
+
+                            <a
+                                href="projects.html"
+                                class="project-link"
+                            >
+                                Xem chi tiết
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SKILLS + EXPERIENCE
+        ========================== -->
+        <section class="skills-experience section">
+
+            <div class="container">
+
+                <div class="two-column-grid">
+
+
+                    <!-- Skills -->
+                    <div class="skills-section">
+
+                        <span class="section-label">
+                            Kỹ năng
+                        </span>
+
+                        <h2>
+                            Công nghệ
+                            <span>mình sử dụng.</span>
+                        </h2>
+
+
+                        <div class="skills-grid">
+
+                            <div class="skill-card">
+                                <span class="skill-icon">Py</span>
+                                <span>Python</span>
+                            </div>
+
+                            <div class="skill-card">
+                                <span class="skill-icon">⚡</span>
+                                <span>FastAPI</span>
+                            </div>
+
+                            <div class="skill-card">
+                                <span class="skill-icon">JS</span>
+                                <span>JavaScript</span>
+                            </div>
+
+                            <div class="skill-card">
+                                <span class="skill-icon">TS</span>
+                                <span>TypeScript</span>
+                            </div>
+
+                            <div class="skill-card">
+                                <span class="skill-icon">PG</span>
+                                <span>PostgreSQL</span>
+                            </div>
+
+                            <div class="skill-card">
+                                <span class="skill-icon">◆</span>
+                                <span>Docker</span>
+                            </div>
+
+                            <div class="skill-card">
+                                <span class="skill-icon">Git</span>
+                                <span>Git</span>
+                            </div>
+
+                            <div class="skill-card">
+                                <span class="skill-icon">Ln</span>
+                                <span>Linux</span>
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            href="skills.html"
+                            class="text-link"
+                        >
+                            Xem thêm kỹ năng
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+
+                    <!-- Experience -->
+                    <div class="experience-section">
+
+                        <span class="section-label">
+                            Kinh nghiệm
+                        </span>
+
+                        <h2>
+                            Quá trình
+                            <span>phát triển.</span>
+                        </h2>
+
+
+                        <div class="timeline">
+
+                            <article class="timeline-item">
+
+                                <span class="timeline-date">
+                                    2026 — Hiện tại
+                                </span>
+
+                                <div class="timeline-content">
+
+                                    <h3>
+                                        Backend Developer
+                                    </h3>
+
+                                    <span class="timeline-company">
+                                        Talent Store
+                                    </span>
+
+                                    <p>
+                                        Tham gia phát triển các dự án,
+                                        xử lý dữ liệu và làm việc với
+                                        các công nghệ backend hiện đại.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                            <article class="timeline-item">
+
+                                <span class="timeline-date">
+                                    2025 — 2026
+                                </span>
+
+                                <div class="timeline-content">
+
+                                    <h3>
+                                        Freelance Developer
+                                    </h3>
+
+                                    <span class="timeline-company">
+                                        Freelance
+                                    </span>
+
+                                    <p>
+                                        Phát triển website, API và các
+                                        công cụ hỗ trợ doanh nghiệp
+                                        vừa và nhỏ.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                            <article class="timeline-item">
+
+                                <span class="timeline-date">
+                                    2023 — 2025
+                                </span>
+
+                                <div class="timeline-content">
+
+                                    <h3>
+                                        Học tập & Nghiên cứu
+                                    </h3>
+
+                                    <span class="timeline-company">
+                                        Công nghệ thông tin
+                                    </span>
+
+                                    <p>
+                                        Tập trung vào DSA, OOP, Database,
+                                        Backend và các công nghệ mới.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================== -->
+        <section class="cta-section">
+
+            <div class="container cta-content">
+
+                <div class="cta-text">
+
+                    <span class="section-label">
+                        Let's build
+                    </span>
+
+                    <h2>
+                        Bạn có ý tưởng
+                        <br>
+                        cùng nhau
+                        <span>thực hiện?</span>
+                    </h2>
+
+                    <p>
+                        Mình luôn sẵn sàng lắng nghe những ý tưởng
+                        thú vị và cùng bạn biến chúng thành sản phẩm.
+                    </p>
+
+                    <a
+                        href="contact.html"
+                        class="button button-primary"
+                    >
+                        Gửi email cho mình
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+
+                <!-- Decorative visual -->
+                <div class="cta-visual">
+
+                    <div class="paper-plane">
+                        ✈
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer class="site-footer">
+
+        <div class="container footer-inner">
+
+            <div class="footer-brand">
+
+                <a
+                    href="index.html"
+                    class="logo"
+                >
+                    N<span>.</span>
+                </a>
+
+                <p>
+                    Đặng Đình Nguyễn
+                </p>
+
+            </div>
+
+
+            <div class="footer-navigation">
+
+                <a href="index.html">
+                    Trang chủ
+                </a>
+
+                <a href="about.html">
+                    Giới thiệu
+                </a>
+
+                <a href="projects.html">
+                    Dự án
+                </a>
+
+                <a href="experience.html">
+                    Kinh nghiệm
+                </a>
+
+                <a href="blog.html">
+                    Blog
+                </a>
+
+                <a href="contact.html">
+                    Liên hệ
+                </a>
+
+            </div>
+
+
+            <div class="footer-socials">
+
+                <a href="#" aria-label="GitHub">
+                    GitHub
+                </a>
+
+                <a href="#" aria-label="LinkedIn">
+                    LinkedIn
+                </a>
+
+                <a
+                    href="mailto:your-email@example.com"
+                    aria-label="Email"
+                >
+                    Email
+                </a>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 Đặng Đình Nguyễn.
+                    All rights reserved.
+                </span>
+
+                <a href="#top">
+                    Lên đầu trang ↑
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>
+```
