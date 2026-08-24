@@ -29,9 +29,9 @@
     min-height: 760px;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
-    padding: 100px 0 80px;
+    padding: 56px 0 80px;
 
     overflow: hidden;
 
@@ -126,7 +126,7 @@
 .hero-content {
     position: relative;
 
-    padding: 40px 0 65px;
+    padding: 8px 0 65px;
 
     animation:
         heroContentIn 900ms

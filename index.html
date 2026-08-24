@@ -50,8 +50,62 @@
         </div>
     </div>
 
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="site-header">
+        <nav class="navbar container">
+
+            <!-- Logo -->
+            <a href="index.html" class="logo" aria-label="Trang chủ">
+                N<span>.</span>
+            </a>
+
+            <!-- Navigation -->
+            <div class="nav-links">
+
+                <a href="#top" class="nav-link active" data-nav-link>
+                    Trang chủ
+                </a>
+
+                <a href="#about" class="nav-link" data-nav-link>
+                    Giới thiệu
+                </a>
+
+                <a href="#projects" class="nav-link" data-nav-link>
+                    Dự án
+                </a>
+
+                <a href="#experience" class="nav-link" data-nav-link>
+                    Kinh nghiệm
+                </a>
+
+                <a href="blog.html" class="nav-link">
+                    Blog
+                </a>
+
+                <a href="#contact" class="nav-link" data-nav-link>
+                    Liên hệ
+                </a>
+
+            </div>
+
+            <!-- Theme -->
+            <button
+                class="theme-toggle"
+                type="button"
+                aria-label="Đổi giao diện sáng tối"
+            >
+                <span class="theme-icon">☼</span>
+            </button>
+
+        </nav>
+    </header>
+
+    <main>
+
     <!-- Trong section .hero -->
-    <section class="hero dark-grid-bg">
+    <section class="hero dark-grid-bg" id="top">
         <div class="container hero-grid">
             <!-- Cột trái: Thông tin -->
             <div class="hero-content">
@@ -93,187 +147,55 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- =========================
-         HEADER
-    ========================== -->
-    <header class="site-header">
-        <nav class="navbar container">
 
-            <!-- Logo -->
-            <a href="index.html" class="logo" aria-label="Trang chủ">
-                N<span>.</span>
+        <!-- Social -->
+        <div class="hero-socials">
+
+            <a
+                href="#"
+                class="social-link"
+                aria-label="GitHub"
+            >
+                GitHub
             </a>
 
-            <!-- Navigation -->
-            <div class="nav-links">
-
-                <a href="index.html" class="nav-link active">
-                    Trang chủ
-                </a>
-
-                <a href="about.html" class="nav-link">
-                    Giới thiệu
-                </a>
-
-                <a href="projects.html" class="nav-link">
-                    Dự án
-                </a>
-
-                <a href="experience.html" class="nav-link">
-                    Kinh nghiệm
-                </a>
-
-                <a href="blog.html" class="nav-link">
-                    Blog
-                </a>
-
-                <a href="contact.html" class="nav-link">
-                    Liên hệ
-                </a>
-
-            </div>
-
-            <!-- Theme -->
-            <button
-                class="theme-toggle"
-                type="button"
-                aria-label="Đổi giao diện sáng tối"
+            <a
+                href="#"
+                class="social-link"
+                aria-label="LinkedIn"
             >
-                <span class="theme-icon">☼</span>
-            </button>
+                LinkedIn
+            </a>
 
-        </nav>
-    </header>
+            <a
+                href="mailto:your-email@example.com"
+                class="social-link"
+                aria-label="Email"
+            >
+                Email
+            </a>
 
+        </div>
 
-    <main>
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
 
-        <!-- =========================
-             HERO
-        ========================== -->
-        <section class="hero">
+            <span class="scroll-text">
+                Scroll để khám phá
+            </span>
 
-            <div class="container hero-grid">
+            <span class="scroll-arrow">
+                ↓
+            </span>
 
-                <!-- Hero Content -->
-                <div class="hero-content">
+        </div>
 
-                    <span class="hero-eyebrow">
-                        Xin chào! Tôi là
-                    </span>
-
-                    <h1 class="hero-title">
-                        Đặng Đình
-                        <span>Nguyễn</span>
-                    </h1>
-
-                    <div class="hero-role">
-                        <span>&lt;</span>
-                        Backend Developer
-                        <span>/&gt;</span>
-                    </div>
-
-                    <p class="hero-description">
-                        Mình xây dựng các hệ thống backend mạnh mẽ,
-                        tối ưu hiệu năng và luôn học hỏi để tạo ra
-                        những sản phẩm có giá trị.
-                    </p>
-
-                    <!-- CTA -->
-                    <div class="hero-actions">
-
-                        <a
-                            href="projects.html"
-                            class="button button-primary"
-                        >
-                            Xem dự án của tôi
-                            <span aria-hidden="true">→</span>
-                        </a>
-
-                        <a
-                            href="assets/cv.pdf"
-                            class="button button-secondary"
-                            download
-                        >
-                            Tải CV
-                            <span aria-hidden="true">↓</span>
-                        </a>
-
-                    </div>
-
-                    <!-- Social -->
-                    <div class="hero-socials">
-
-                        <a
-                            href="#"
-                            class="social-link"
-                            aria-label="GitHub"
-                        >
-                            GitHub
-                        </a>
-
-                        <a
-                            href="#"
-                            class="social-link"
-                            aria-label="LinkedIn"
-                        >
-                            LinkedIn
-                        </a>
-
-                        <a
-                            href="mailto:your-email@example.com"
-                            class="social-link"
-                            aria-label="Email"
-                        >
-                            Email
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Three.js Visual -->
-                <div class="hero-visual">
-
-                    <div
-                        id="three-container"
-                        class="three-container"
-                        aria-label="Three.js interactive visualization"
-                    >
-                        <!-- Three.js canvas sẽ được render vào đây -->
-                    </div>
-
-                    <div class="three-badge">
-                        <span class="status-dot"></span>
-                        three.js
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator">
-
-                <span class="scroll-text">
-                    Scroll để khám phá
-                </span>
-
-                <span class="scroll-arrow">
-                    ↓
-                </span>
-
-            </div>
-
-        </section>
-
+    </section>
 
         <!-- =========================
              ABOUT PREVIEW
         ========================== -->
-        <section class="about-preview section">
+        <section class="about-preview section" id="about">
 
             <div class="container">
 
@@ -404,7 +326,7 @@
         <!-- =========================
              FEATURED PROJECTS
         ========================== -->
-        <section class="featured-projects section">
+        <section class="featured-projects section" id="projects">
 
             <div class="container">
 
@@ -599,7 +521,7 @@
         <!-- =========================
              SKILLS + EXPERIENCE
         ========================== -->
-        <section class="skills-experience section">
+        <section class="skills-experience section" id="experience">
 
             <div class="container">
 
@@ -783,7 +705,7 @@
         <!-- =========================
              CTA
         ========================== -->
-        <section class="cta-section">
+        <section class="cta-section" id="contact">
 
             <div class="container cta-content">
 

@@ -31,6 +31,50 @@ document.addEventListener('DOMContentLoaded', () => {
             idCard.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
         });
     }
+    // Chọn các thành phần cần hiệu ứng trên tất cả các trang
+    const animatedElements = document.querySelectorAll(`
+        .section-heading, .section-label, .about-intro, .about-content p, 
+        .stat-card, .project-card, .skill-card, .timeline-item, 
+        .cta-text h2, .cta-text p, .button, .contact-form, .blog-card
+    `);
+
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target); // Chỉ chạy 1 lần khi scroll tới
+            }
+        });
+    }, { 
+        threshold: 0.1, // Chạy hiệu ứng khi phần tử lọt vào khung hình 10%
+        rootMargin: "0px 0px -50px 0px" // Kích hoạt sớm hơn 1 chút trước khi tới đáy
+    });
+
+    // Gắn class và delay nối tiếp (staggered delay)
+    let currentDelay = 0;
+    animatedElements.forEach((el, index) => {
+        el.classList.add('vid-fade-up');
+        
+        // Tạo hiệu ứng nối tiếp: Các thẻ gần nhau sẽ hiện cách nhau 100ms
+        // Reset delay về 0 nếu là thẻ đầu tiên của một nhóm mới
+        if (index > 0 && el.getBoundingClientRect().top - animatedElements[index - 1].getBoundingClientRect().top > 100) {
+            currentDelay = 0;
+        } else {
+            currentDelay += 100; 
+        }
+        
+        // Giới hạn delay tối đa là 400ms để không bắt người dùng đợi quá lâu
+        el.style.transitionDelay = `${Math.min(currentDelay, 400)}ms`;
+        
+        scrollObserver.observe(el);
+    });
+
+    // ==========================================
+    // HIỆU ỨNG CHUYỂN TRANG MƯỢT (Trừ trang chủ có sẵn màn intro)
+    // ==========================================
+    if (!document.getElementById('preloader')) {
+        document.body.classList.add('smooth-page-load');
+    }
 
     // ==========================================
     // 4. FLOW SCROLL: Camera Lùi -> Thu Nhỏ -> Mờ
@@ -116,4 +160,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         type();
     }
+    const revealSelectors = [
+        '.project-card', 
+        '.skill-card', 
+        '.timeline-item', 
+        '.technology-list span', // Các tag công nghệ
+        '.stat-card',
+        '.section-heading',
+        '.about-intro',
+        'article'
+    ].join(', ');
+
+    const revealElements = document.querySelectorAll(revealSelectors);
+
+    const pptObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('ppt-visible');
+                observer.unobserve(entry.target); // Chỉ animate 1 lần khi cuộn tới
+            }
+        });
+    }, { 
+        threshold: 0.15, // Kích hoạt khi phần tử hiện 15%
+        rootMargin: "0px 0px -40px 0px"
+    });
+
+    revealElements.forEach((el, index) => {
+        el.classList.add('ppt-hidden');
+        
+        // Tính toán delay sole nhau (stagger) để các thẻ không hiện ra cùng 1 lúc
+        let delay = 0;
+        if (el.tagName === 'SPAN') {
+            // Các tag công nghệ nhỏ sẽ hiện nối tiếp nhau nhanh hơn
+            delay = (index % 10) * 50; 
+        } else {
+            // Các card hoặc section lớn
+            delay = (index % 4) * 100; 
+        }
+        
+        el.style.transitionDelay = `${delay}ms`;
+        pptObserver.observe(el);
+    });
 });
