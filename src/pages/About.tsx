@@ -69,7 +69,8 @@ export const About: React.FC = () => {
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.5rem',
-                  fontWeight: 600,
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
                   marginBottom: '1rem',
                 }}
               >
@@ -107,7 +108,8 @@ export const About: React.FC = () => {
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.5rem',
-                  fontWeight: 600,
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
                   marginBottom: '1rem',
                 }}
               >
@@ -145,7 +147,8 @@ export const About: React.FC = () => {
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.5rem',
-                  fontWeight: 600,
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
                   marginBottom: '1rem',
                 }}
               >
@@ -205,7 +208,8 @@ export const About: React.FC = () => {
                     style={{
                       fontFamily: 'var(--font-display)',
                       fontSize: '1.25rem',
-                      fontWeight: 600,
+                      fontWeight: 800,
+                      letterSpacing: '-0.02em',
                       marginBottom: '1rem',
                     }}
                   >
@@ -275,7 +279,8 @@ export const About: React.FC = () => {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.25rem',
-                    fontWeight: 600,
+                    fontWeight: 800,
+                    letterSpacing: '-0.02em',
                     marginBottom: '0.5rem',
                   }}
                 >

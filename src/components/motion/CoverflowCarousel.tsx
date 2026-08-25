@@ -249,7 +249,8 @@ export const CoverflowCarousel: React.FC<CoverflowCarouselProps> = ({
                     style={{
                       fontFamily: 'var(--font-display)',
                       fontSize: '1.35rem',
-                      fontWeight: 700,
+                      fontWeight: 800,
+                      letterSpacing: '-0.02em',
                       color: 'var(--text-primary)',
                       marginBottom: '0.75rem',
                       lineHeight: 1.2,

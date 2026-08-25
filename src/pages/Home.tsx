@@ -194,7 +194,8 @@ export const Home: React.FC = () => {
                       style={{
                         fontFamily: 'var(--font-display)',
                         fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-                        fontWeight: 700,
+                        fontWeight: 800,
+                        letterSpacing: '-0.02em',
                         marginBottom: '1rem',
                         color: 'var(--text-primary)',
                       }}
@@ -361,7 +362,8 @@ export const Home: React.FC = () => {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.25rem',
-                    fontWeight: 600,
+                    fontWeight: 800,
+                    letterSpacing: '-0.02em',
                     marginBottom: '1rem',
                   }}
                 >
@@ -443,7 +445,8 @@ export const Home: React.FC = () => {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.25rem',
-                    fontWeight: 600,
+                    fontWeight: 800,
+                    letterSpacing: '-0.02em',
                     marginBottom: '0.5rem',
                   }}
                 >
@@ -520,7 +523,7 @@ export const Home: React.FC = () => {
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <a
-                  href="mailto:banhvannguyen45@gmail.com"
+                  href="mailto:[EMAIL_ADDRESS]"
                   className="btn btn-outline"
                   data-cursor="EMAIL"
                 >

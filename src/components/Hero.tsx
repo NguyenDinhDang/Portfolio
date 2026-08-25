@@ -8,7 +8,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({
   enableParticles = true,
-  enableThreeScene = true,
+  enableThreeScene = false,
 }) => {
   return (
     <HeroFloating
@@ -17,3 +17,4 @@ export const Hero: React.FC<HeroProps> = ({
     />
   );
 };
+

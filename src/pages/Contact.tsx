@@ -82,7 +82,7 @@ export const Contact: React.FC = () => {
                   <Mail size={16} />
                   <span>Primary Channel</span>
                 </div>
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
                   Direct Email
                 </h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', lineHeight: 1.6, marginBottom: '2rem' }}>
@@ -167,7 +167,7 @@ export const Contact: React.FC = () => {
                   </svg>
                   <span>Code & Networks</span>
                 </div>
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
                   Developer Profiles
                 </h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', lineHeight: 1.6, marginBottom: '2rem' }}>

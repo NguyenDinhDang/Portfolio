@@ -110,7 +110,8 @@ export const Work: React.FC = () => {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: 'var(--text-h2)',
-                    fontWeight: 700,
+                    fontWeight: 800,
+                    letterSpacing: '-0.03em',
                     marginBottom: '1rem',
                   }}
                 >

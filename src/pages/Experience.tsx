@@ -92,7 +92,8 @@ export const Experience: React.FC = () => {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: 'var(--text-h3)',
-                    fontWeight: 700,
+                    fontWeight: 800,
+                    letterSpacing: '-0.02em',
                     marginBottom: '0.25rem',
                   }}
                 >

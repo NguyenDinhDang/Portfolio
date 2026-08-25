@@ -32,8 +32,8 @@ export const Footer: React.FC = () => {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.75rem',
-                fontWeight: 700,
-                letterSpacing: '-0.03em',
+                fontWeight: 900,
+                letterSpacing: '-0.04em',
                 marginBottom: '1rem',
               }}
             >

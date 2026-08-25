@@ -31,7 +31,8 @@
 
   /* Typography Stacks */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Space Grotesk', var(--font-sans);
+  --font-display: 'Archivo', var(--font-sans);
+  --font-heading: 'Archivo', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Typography Scales (Fluid Clamp) */
