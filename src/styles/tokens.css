@@ -1,0 +1,63 @@
+/* ==========================================================================
+   DESIGN TOKENS — CINEMATIC EDITORIAL THEME
+   Deep Space Black + Controlled Crimson Red Accent + Crisp Typography
+   ========================================================================== */
+
+:root {
+  /* Surface & Background Colors */
+  --bg-primary: #09090b;       /* Deep near-black background */
+  --bg-secondary: #111115;     /* Dark charcoal secondary layer */
+  --bg-surface: #17171d;       /* Card / component surface */
+  --bg-surface-hover: #1e1e26; /* Hover state for surfaces */
+  --bg-elevated: #23232c;      /* Popovers / tooltips */
+
+  /* Text & Foreground Colors */
+  --text-primary: #f4f4f7;     /* Crisp high-contrast off-white */
+  --text-secondary: #9696a6;   /* Muted readable gray */
+  --text-muted: #5e5e6e;       /* Subtle metadata gray */
+  --text-inverse: #09090b;     /* Inverted text on bright surfaces */
+
+  /* Controlled Red Accent */
+  --accent: #ff3344;           /* Vivid cinematic crimson red */
+  --accent-hover: #ff4d5d;     /* Lighter red on hover */
+  --accent-dim: #991b26;       /* Deep subdued red */
+  --accent-glow: rgba(255, 51, 68, 0.18); /* Ambient red reflection */
+  --accent-subtle: rgba(255, 51, 68, 0.08); /* Background tint */
+
+  /* Structural Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-accent: rgba(255, 51, 68, 0.4);
+
+  /* Typography Stacks */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', var(--font-sans);
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Typography Scales (Fluid Clamp) */
+  --text-display: clamp(2.75rem, 7vw, 6.5rem);
+  --text-h1: clamp(2.25rem, 5vw, 4.25rem);
+  --text-h2: clamp(1.75rem, 3.5vw, 2.75rem);
+  --text-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --text-body-lg: 1.125rem;
+  --text-body: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Spacing */
+  --container-max: 1320px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
+  --section-gap: clamp(5rem, 10vw, 10rem);
+
+  /* Transitions & Animation Easing */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snappy: cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-fast: 150ms var(--ease-snappy);
+  --transition-normal: 280ms var(--ease-cinematic);
+  --transition-slow: 600ms var(--ease-cinematic);
+
+  /* Elevation */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 35px var(--accent-glow);
+}
