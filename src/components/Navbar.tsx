@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { to: '/', label: 'Overview' },
-  { to: '/about', label: 'About' },
-  { to: '/work', label: 'Work' },
-  { to: '/experience', label: 'Experience' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/', label: 'Tổng quan' },
+  { to: '/about', label: 'Giới thiệu' },
+  { to: '/work', label: 'Dự án' },
+  { to: '/experience', label: 'Kinh nghiệm' },
+  { to: '/contact', label: 'Liên hệ' },
 ];
 
 export const Navbar: React.FC = () => {
@@ -53,7 +53,7 @@ export const Navbar: React.FC = () => {
         <NavLink
           to="/"
           style={{
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'var(--font-heading)',
             fontSize: '1.5rem',
             fontWeight: 900,
             letterSpacing: '-0.04em',
@@ -81,10 +81,9 @@ export const Navbar: React.FC = () => {
               onMouseEnter={() => setHoveredNav(item.to)}
               onMouseLeave={() => setHoveredNav(null)}
               style={({ isActive }) => ({
-                fontFamily: 'var(--font-mono)',
-                fontSize: 'var(--text-xs)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'var(--text-sm)',
+                fontWeight: 500,
                 color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -98,33 +97,34 @@ export const Navbar: React.FC = () => {
                 <>
                   {isActive && (
                     <motion.span
-                      layoutId="nav-active-dot"
+                      layoutId="activeNavDot"
                       style={{
                         width: '4px',
                         height: '4px',
                         borderRadius: '50%',
                         backgroundColor: 'var(--accent)',
-                        boxShadow: '0 0 6px var(--accent)',
+                        display: 'inline-block',
                       }}
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                     />
                   )}
                   <span>{item.label}</span>
 
-                  {/* Animated Underline on Hover */}
-                  <motion.span
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: '1.5px',
-                      backgroundColor: 'var(--accent)',
-                      transformOrigin: 'left',
-                    }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: hoveredNav === item.to || isActive ? 1 : 0 }}
-                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  />
+                  {/* Hover Underline Glow */}
+                  {hoveredNav === item.to && !isActive && (
+                    <motion.span
+                      layoutId="hoverNavUnderline"
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '1px',
+                        backgroundColor: 'var(--text-muted)',
+                      }}
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
                 </>
               )}
             </NavLink>
@@ -152,6 +152,7 @@ export const Navbar: React.FC = () => {
               borderRadius: '999px',
               border: '1px solid var(--border)',
               backgroundColor: 'var(--bg-secondary)',
+              letterSpacing: '0.06em',
             }}
           >
             <span
@@ -163,7 +164,7 @@ export const Navbar: React.FC = () => {
                 boxShadow: '0 0 8px rgba(34, 197, 94, 0.6)',
               }}
             />
-            <span>AVAILABLE FOR WORK</span>
+            <span>SẴN SÀNG HỢP TÁC</span>
           </div>
 
           <motion.div
@@ -180,7 +181,7 @@ export const Navbar: React.FC = () => {
                 boxShadow: '0 0 15px rgba(255, 51, 68, 0.25)',
               }}
             >
-              <span>Let's Talk</span>
+              <span>Kết Nối Ngay</span>
               <ArrowUpRight size={14} />
             </NavLink>
           </motion.div>
@@ -218,59 +219,40 @@ export const Navbar: React.FC = () => {
             borderTop: '1px solid var(--border)',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.75rem',
-            }}
-          >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {NAV_ITEMS.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 onClick={closeMobile}
                 style={({ isActive }) => ({
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.75rem',
-                  fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '1.5rem',
+                  fontWeight: 700,
                   color: isActive ? 'var(--accent)' : 'var(--text-primary)',
-                  letterSpacing: '-0.02em',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderBottom: '1px solid var(--border)',
+                  paddingBottom: '1rem',
                 })}
               >
-                {item.label}
+                <span>{item.label}</span>
+                <ArrowUpRight size={18} />
               </NavLink>
             ))}
           </div>
 
-          <div
-            style={{
-              paddingTop: '2rem',
-              borderTop: '1px solid var(--border)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 'var(--text-xs)',
-                color: 'var(--text-secondary)',
-              }}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <NavLink
+              to="/contact"
+              onClick={closeMobile}
+              className="btn btn-primary"
+              style={{ width: '100%', boxSizing: 'border-box' }}
             >
-              ● AVAILABLE FOR SELECT PROJECTS (2026)
-            </div>
-            <a
-              href="mailto:banhvannguyen45@gmail.com"
-              style={{
-                color: 'var(--accent)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: 'var(--text-sm)',
-              }}
-            >
-              banhvannguyen45@gmail.com
-            </a>
+              <span>Kết Nối Ngay</span>
+              <ArrowUpRight size={16} />
+            </NavLink>
           </div>
         </div>
       )}
@@ -278,8 +260,13 @@ export const Navbar: React.FC = () => {
       <style>{`
         @media (min-width: 768px) {
           .desktop-nav { display: flex !important; }
-          .desktop-cta { display: inline-flex !important; }
+          .desktop-cta { display: flex !important; }
           .mobile-toggle { display: none !important; }
+        }
+        @media (max-width: 767px) {
+          .desktop-nav { display: none !important; }
+          .desktop-cta { display: none !important; }
+          .mobile-toggle { display: flex !important; }
         }
       `}</style>
     </header>

@@ -112,21 +112,22 @@ button {
 
 /* Typography Helpers */
 .display-title {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: var(--text-display);
   font-weight: 900;
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
   color: var(--text-primary);
 }
 
 .section-title {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: var(--text-h2);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
 }
@@ -142,24 +143,32 @@ button {
 .text-mono {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
 /* Font Family & Tracking Utilities */
 .font-heading {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-heading), 'Archivo', sans-serif !important;
 }
 .font-mono {
-  font-family: var(--font-mono), monospace;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace !important;
 }
 .font-sans {
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-sans), 'Inter', sans-serif !important;
 }
 .tracking-tight {
-  letter-spacing: -0.03em;
+  letter-spacing: -0.03em !important;
+}
+.tracking-tighter {
+  letter-spacing: -0.04em !important;
 }
 .tracking-wide {
-  letter-spacing: 0.08em;
+  letter-spacing: 0.08em !important;
+}
+.tracking-wider {
+  letter-spacing: 0.12em !important;
 }
 
 /* ==========================================================================
@@ -172,10 +181,10 @@ button {
   justify-content: center;
   gap: 0.625rem;
   padding: 0.875rem 1.75rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-sm);
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   border-radius: 4px;
   transition: all var(--transition-normal);

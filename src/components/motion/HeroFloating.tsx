@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Terminal } from 'lucide-react';
 import { HeroThreeScene } from '../HeroThreeScene';
 
 const ROLES = [
-  'Python / FastAPI Specialist',
-  'Distributed Backend Architect',
-  'Context-Aware RAG Engineer',
-  'High-Performance Systems Builder',
+  'Chuyên gia Python / FastAPI',
+  'Kiến trúc sư Backend Phân tán',
+  'Kỹ sư RAG & Trí tuệ Nhân tạo',
+  'Xây dựng Hệ thống Hiệu năng cao',
 ];
 
 const HERO_PARTICLES = [
@@ -30,23 +30,30 @@ const HERO_PARTICLES = [
   { left: '88%', size: 3, color: 'rgba(244, 244, 247, 0.45)', duration: 13.5, delay: 1.7 },
 ];
 
-interface HeroFloatingProps {
+export interface HeroFloatingProps {
   enableParticles?: boolean;
   enableThreeScene?: boolean;
+  line1?: string;
+  line2Prefix?: string;
+  line2Accent?: string;
 }
 
 /**
- * Đạo hữu xin nương tay, trận pháp Tam Trọng Trọng Lực (Heading Z10 - Huyết Quang Trận Z15 - Kim Thân Chân Dung Z20)
- * đang vận hành tương hỗ lệch pha 0.7s cực kỳ ổn định.
- * Chớ dại tùy tiện sửa đổi Z-Index hay Easing kẻo phá vỡ khí trường lơ lửng, tẩu hỏa nhập ma!
+ * Đạo hữu xin nương tay, trận pháp Tam Trọng Trọng Lực kết hợp Cơ Quan Đánh Máy (Typewriter Grapheme Sequencer)
+ * đang vận hành xuất chiêu từng chữ 40ms cực kỳ ổn định.
+ * Chớ dại tùy tiện sửa đổi Z-Index, Grapheme Slicer hay Easing kẻo phá vỡ khí trường lơ lửng, tẩu hỏa nhập ma!
  */
 export const HeroFloating: React.FC<HeroFloatingProps> = ({
   enableParticles = true,
   enableThreeScene = false,
+  line1 = 'ĐẶNG ĐÌNH NGUYỄN',
+  line2Prefix = 'KỸ SƯ ',
+  line2Accent = 'HỆ THỐNG',
 }) => {
   const [roleIndex, setRoleIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
 
+  // Role Switcher Interval
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % ROLES.length);
@@ -54,31 +61,52 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  // Animation Variants for Load-in Sequence
-  const headingLine1Variants = {
-    initial: { opacity: 0, y: 24 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-      },
-    },
-  };
+  // Grapheme-safe Character Extraction for Typewriter Effect
+  const line1Chars = useMemo(() => Array.from(line1), [line1]);
+  const line2Chars = useMemo(() => {
+    const prefixChars = Array.from(line2Prefix).map((c) => ({ char: c, isAccent: false }));
+    const accentChars = Array.from(line2Accent).map((c) => ({ char: c, isAccent: true }));
+    return [...prefixChars, ...accentChars];
+  }, [line2Prefix, line2Accent]);
 
-  const headingLine2Variants = {
-    initial: { opacity: 0, y: 24 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: 0.1,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-      },
-    },
-  };
+  const totalChars = line1Chars.length + line2Chars.length;
+  const [typedCount, setTypedCount] = useState(shouldReduceMotion ? totalChars : 0);
+
+  // Typewriter Sequential Timer (35-45ms per character)
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setTypedCount(totalChars);
+      return;
+    }
+
+    setTypedCount(0);
+    const charDelayMs = 40;
+    const initialStartDelayMs = 200;
+
+    const timeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        setTypedCount((prev) => {
+          if (prev < totalChars) {
+            return prev + 1;
+          }
+          clearInterval(interval);
+          return prev;
+        });
+      }, charDelayMs);
+
+      return () => clearInterval(interval);
+    }, initialStartDelayMs);
+
+    return () => clearTimeout(timeout);
+  }, [totalChars, shouldReduceMotion]);
+
+  // Derived character slices
+  const typedLine1Count = Math.min(typedCount, line1Chars.length);
+  const typedLine2Count = Math.max(0, typedCount - line1Chars.length);
+
+  // Active line for the blinking terminal cursor (Line 1 while typing line 1, Line 2 thereafter)
+  const isLine1Active = typedCount < line1Chars.length;
+  const isLine2Active = typedCount >= line1Chars.length;
 
   return (
     <section
@@ -90,8 +118,8 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: '6rem',
-        paddingBottom: '3.5rem',
+        paddingTop: '5.5rem',
+        paddingBottom: '3rem',
         overflow: 'hidden',
       }}
     >
@@ -143,7 +171,7 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
           zIndex: 10,
         }}
       >
-        {/* Status Pill Badge with balanced breathing room */}
+        {/* Status Pill Badge with balanced breathing room (ensures 16-24px clearance to head) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -157,7 +185,7 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
             border: '1px solid var(--border)',
             padding: '0.45rem 1.15rem',
             borderRadius: '999px',
-            marginBottom: '1.75rem',
+            marginBottom: '3.5rem',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
             zIndex: 25,
             position: 'relative',
@@ -181,16 +209,16 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
               textTransform: 'uppercase',
             }}
           >
-            SOFTWARE ENGINEER // VIETNAM (UTC+7)
+            KỸ SƯ PHẦN MỀM // VIỆT NAM (UTC+7)
           </span>
         </motion.div>
 
         {/* 
           ========================================================================
           THE LAYERED CENTERPIECE:
-          Layer 1 (Z-index 10): 2-Line Short Heading (DANG DINH NGUYEN / SYSTEM ARCHITECT)
+          Layer 1 (Z-index 10): Typewriter 2-Line Heading (ĐẶNG ĐÌNH NGUYỄN / KỸ SƯ HỆ THỐNG)
           Layer 2 (Z-index 15): Radial Glow Aura (Behind Portrait)
-          Layer 3 (Z-index 20): Overlapping Portrait Image (/background.png) anchored by TOP
+          Layer 3 (Z-index 20): Overlapping Portrait Image (/background.png - enlarged ~118%)
           ========================================================================
         */}
         <div
@@ -198,7 +226,6 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
           style={{
             position: 'relative',
             width: '100%',
-            minHeight: 'clamp(260px, 32vw, 380px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -224,37 +251,90 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
               delay: 0.7,
             }}
           >
-            {/* Line 1 Heading: Short & Punchy */}
-            <motion.h1
-              variants={headingLine1Variants}
-              initial="initial"
-              animate="animate"
+            {/* Line 1 Heading: Typewriter Character Sequence */}
+            <h1
               className="display-title"
               style={{
                 margin: 0,
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
                 letterSpacing: '-0.03em',
+                minHeight: '1.15em',
+                lineHeight: 1.1,
               }}
             >
-              DANG DINH NGUYEN
-            </motion.h1>
+              {line1Chars.slice(0, typedLine1Count).map((char, index) => (
+                <motion.span
+                  key={`l1-${index}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.04 }}
+                >
+                  {char}
+                </motion.span>
+              ))}
 
-            {/* Line 2 Heading: Role Title */}
-            <motion.h1
-              variants={headingLine2Variants}
-              initial="initial"
-              animate="animate"
+              {/* Line 1 Terminal Blinking Cursor */}
+              {isLine1Active && !shouldReduceMotion && (
+                <motion.span
+                  aria-hidden="true"
+                  style={{
+                    display: 'inline-block',
+                    width: '3px',
+                    height: '0.82em',
+                    backgroundColor: 'var(--accent)',
+                    marginLeft: '4px',
+                    verticalAlign: '-0.06em',
+                    boxShadow: '0 0 10px var(--accent)',
+                  }}
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.75, repeat: Infinity, ease: 'linear' }}
+                />
+              )}
+            </h1>
+
+            {/* Line 2 Heading: Typewriter Character Sequence with Accent Styling */}
+            <h1
               className="display-title"
               style={{
                 margin: 0,
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
                 letterSpacing: '-0.03em',
+                minHeight: '1.15em',
+                lineHeight: 1.1,
               }}
             >
-              SYSTEM <span style={{ color: 'var(--accent)' }}>ARCHITECT</span>
-            </motion.h1>
+              {line2Chars.slice(0, typedLine2Count).map((item, index) => (
+                <motion.span
+                  key={`l2-${index}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.04 }}
+                  style={item.isAccent ? { color: 'var(--accent)' } : undefined}
+                >
+                  {item.char}
+                </motion.span>
+              ))}
+
+              {/* Line 2 Terminal Blinking Cursor */}
+              {isLine2Active && !shouldReduceMotion && (
+                <motion.span
+                  aria-hidden="true"
+                  style={{
+                    display: 'inline-block',
+                    width: '3px',
+                    height: '0.82em',
+                    backgroundColor: 'var(--accent)',
+                    marginLeft: '4px',
+                    verticalAlign: '-0.06em',
+                    boxShadow: '0 0 10px var(--accent)',
+                  }}
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.75, repeat: Infinity, ease: 'linear' }}
+                />
+              )}
+            </h1>
           </motion.div>
 
           {/* Layer 2: Radial Glow Aura (z-index: 15, between text and portrait) */}
@@ -266,8 +346,8 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: 'clamp(280px, 40vw, 540px)',
-              height: 'clamp(280px, 40vw, 540px)',
+              width: 'clamp(280px, 42vw, 540px)',
+              height: 'clamp(280px, 42vw, 540px)',
               borderRadius: '50%',
               background:
                 'radial-gradient(circle, rgba(255, 51, 68, 0.45) 0%, rgba(255, 51, 68, 0.15) 45%, transparent 70%)',
@@ -285,56 +365,49 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
             }}
           />
 
-          {/* Layer 3: Portrait Image Wrapper (Anchored by TOP, strictly centered horizontally) */}
-          <div
+          {/* Layer 3: Enlarged Portrait Image (z-index: 20, overlaps text, spring load-in + idle float) */}
+          <motion.div
             style={{
               position: 'absolute',
               zIndex: 20,
               left: '50%',
-              top: '18px',
+              bottom: '-16px',
               transform: 'translateX(-50%)',
               pointerEvents: 'none',
               display: 'flex',
-              alignItems: 'flex-start',
+              alignItems: 'flex-end',
               justifyContent: 'center',
-              width: 'max-content',
+              willChange: 'transform',
+            }}
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.4,
+              type: 'spring',
+              stiffness: 120,
+              damping: 14,
             }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: -40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.4,
-                type: 'spring',
-                stiffness: 120,
-                damping: 14,
+            <motion.img
+              src="/background.png"
+              alt="Dang Dinh Nguyen"
+              style={{
+                maxHeight: 'clamp(280px, 44vh, 480px)',
+                width: 'auto',
+                objectFit: 'contain',
+                filter:
+                  'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(255, 51, 68, 0.25))',
               }}
-            >
-              <motion.img
-                src="/background.png"
-                alt="Dang Dinh Nguyen"
-                className="hero-portrait-img"
-                style={{
-                  width: 'auto',
-                  objectFit: 'contain',
-                  filter:
-                    'drop-shadow(0 20px 45px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 35px rgba(255, 51, 68, 0.35))',
-                }}
-                animate={{
-                  y: shouldReduceMotion ? 0 : [0, -10, 0],
-                }}
-                transition={
-                  shouldReduceMotion
-                    ? {}
-                    : {
-                        duration: 4.5,
-                        ease: 'easeInOut',
-                        repeat: Infinity,
-                      }
-                }
-              />
-            </motion.div>
-          </div>
+              animate={{
+                y: [0, -10, 0],
+              }}
+              transition={{
+                duration: 4.5,
+                ease: 'easeInOut',
+                repeat: Infinity,
+              }}
+            />
+          </motion.div>
         </div>
 
         {/* Dynamic Focus Tagline (z-index: 25) */}
@@ -361,7 +434,7 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
           }}
         >
           <Terminal size={15} />
-          <span style={{ color: 'var(--text-muted)' }}>&gt; focus:</span>
+          <span style={{ color: 'var(--text-muted)' }}>&gt; trọng tâm:</span>
           <span
             key={roleIndex}
             style={{
@@ -402,7 +475,7 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
                 boxShadow: '0 0 20px rgba(255, 51, 68, 0.25)',
               }}
             >
-              <span>Selected Case Studies</span>
+              <span>Xem Dự Án Tiêu Biểu</span>
               <ArrowUpRight size={16} />
             </NavLink>
           </motion.div>
@@ -417,7 +490,7 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
               className="btn btn-outline"
               data-cursor="CONNECT"
             >
-              <span>Start Technical Discussion</span>
+              <span>Bắt Đầu Trao Đổi Kỹ Thuật</span>
             </NavLink>
           </motion.div>
         </motion.div>
@@ -427,20 +500,6 @@ export const HeroFloating: React.FC<HeroFloatingProps> = ({
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(6px); }
           to { opacity: 1; transform: translateY(0); }
-        }
-        .hero-portrait-img {
-          height: auto;
-          max-height: 490px;
-        }
-        @media (max-width: 1279px) {
-          .hero-portrait-img {
-            max-height: 370px;
-          }
-        }
-        @media (max-width: 767px) {
-          .hero-portrait-img {
-            max-height: 260px;
-          }
         }
       `}</style>
     </section>

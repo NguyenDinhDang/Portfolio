@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Check, Copy, ArrowUpRight } from 'lucide-react';
+import { Mail, Check, Copy, ArrowUpRight, Send, MessageSquare, Code2 } from 'lucide-react';
 import { RevealSection } from '../components/motion/RevealSection';
 import { itemFadeUpVariants } from '../components/motion/motionVariants';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const email = 'banhvannguyen45@gmail.com';
 
   const copyEmail = () => {
@@ -14,27 +16,36 @@ export const Contact: React.FC = () => {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormSubmitted(true);
+    setTimeout(() => {
+      setFormSubmitted(false);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }, 4000);
+  };
+
   return (
     <main style={{ paddingTop: '8rem', paddingBottom: '6rem' }}>
       <div className="container">
         {/* Header */}
-        <RevealSection watermarkText="CONNECT">
+        <RevealSection watermarkText="LIÊN HỆ">
           <div style={{ maxWidth: '840px', marginBottom: '5rem' }}>
             <motion.div variants={itemFadeUpVariants} className="eyebrow">
-              [ 01 . INITIATE ]
+              [ 01 . KHỞI TẠO KẾT NỐI ]
             </motion.div>
             <motion.h1 variants={itemFadeUpVariants} className="display-title" style={{ marginBottom: '2rem' }}>
-              HAVE A PROBLEM WORTH <span style={{ color: 'var(--accent)' }}>BUILDING</span>?
+              BẠN CÓ BÀI TOÁN CẦN <span style={{ color: 'var(--accent)' }}>HIỆN THỰC HÓA</span>?
             </motion.h1>
             <motion.p variants={itemFadeUpVariants} className="text-lead">
-              Whether you need a high-scale backend microservice, an AI/RAG knowledge assistant,
-              or a dedicated engineer who writes clean, intentional code — let's connect.
+              Dù bạn cần một vi dịch vụ backend chịu tải cao, một trợ lý tri thức AI/RAG thông minh,
+              hay một kỹ sư tận tâm viết mã tường minh, kỷ luật — hãy bắt đầu cuộc trò chuyện.
             </motion.p>
           </div>
         </RevealSection>
 
         {/* Contact Methods Grid */}
-        <RevealSection watermarkText="CHANNELS">
+        <RevealSection watermarkText="KÊNH LIÊN LẠC">
           <div
             style={{
               display: 'grid',
@@ -77,16 +88,17 @@ export const Contact: React.FC = () => {
                     color: 'var(--accent)',
                     textTransform: 'uppercase',
                     marginBottom: '1rem',
+                    letterSpacing: '0.08em',
                   }}
                 >
                   <Mail size={16} />
-                  <span>Primary Channel</span>
+                  <span>Kênh liên hệ chính</span>
                 </div>
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
-                  Direct Email
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
+                  Email Trực Tiếp
                 </h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Feel free to send project briefs, technical queries, or collaboration opportunities directly.
+                  Hãy gửi thông tin mô tả dự án, yêu cầu kỹ thuật hoặc cơ hội hợp tác trực tiếp đến hòm thư của tôi.
                 </p>
               </div>
 
@@ -97,35 +109,34 @@ export const Contact: React.FC = () => {
                     className="btn btn-primary"
                     style={{ width: '100%', boxSizing: 'border-box' }}
                   >
-                    <span>Compose Email</span>
+                    <span>Soạn Email</span>
                     <ArrowUpRight size={14} />
                   </a>
                 </motion.div>
 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <button
-                    onClick={copyEmail}
-                    className="btn btn-outline"
-                    style={{ minWidth: '120px' }}
-                    title="Copy email to clipboard"
-                  >
-                    {copied ? (
-                      <>
-                        <Check size={14} color="#22c55e" />
-                        <span style={{ color: '#22c55e' }}>Copied!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={14} />
-                        <span>Copy</span>
-                      </>
-                    )}
-                  </button>
-                </motion.div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={copyEmail}
+                  className="btn btn-outline"
+                  style={{ minWidth: '130px' }}
+                >
+                  {copied ? (
+                    <>
+                      <Check size={14} color="var(--accent)" />
+                      <span>Đã sao chép!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} />
+                      <span>Sao chép</span>
+                    </>
+                  )}
+                </motion.button>
               </div>
             </motion.div>
 
-            {/* Social Profiles Card */}
+            {/* Instant Messaging & Social */}
             <motion.div
               variants={itemFadeUpVariants}
               whileHover={{ y: -3 }}
@@ -141,7 +152,7 @@ export const Contact: React.FC = () => {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'var(--border-accent)';
-                e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.4)';
+                e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'var(--border)';
@@ -159,59 +170,44 @@ export const Contact: React.FC = () => {
                     color: 'var(--accent)',
                     textTransform: 'uppercase',
                     marginBottom: '1rem',
+                    letterSpacing: '0.08em',
                   }}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                  </svg>
-                  <span>Code & Networks</span>
+                  <MessageSquare size={16} />
+                  <span>Trao đổi tức thì & Mã nguồn</span>
                 </div>
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
-                  Developer Profiles
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
+                  Mạng Lưới Kỹ Thuật
                 </h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Review open-source code contributions, system repositories, and professional updates.
+                  Khám phá toàn bộ mã nguồn các dự án trên GitHub hoặc kết nối trao đổi nhanh qua Telegram.
                 </p>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ flex: '1 1 45%' }}>
                   <a
                     href="https://github.com/NguyenDinhDang"
                     target="_blank"
                     rel="noreferrer"
                     className="btn btn-outline"
-                    style={{ justifyContent: 'space-between', width: '100%', boxSizing: 'border-box' }}
+                    style={{ width: '100%', boxSizing: 'border-box' }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                        <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                      </svg>
-                      <span>GitHub (@NguyenDinhDang)</span>
-                    </div>
-                    <ArrowUpRight size={14} />
+                    <Code2 size={14} />
+                    <span>GitHub</span>
                   </a>
                 </motion.div>
 
-                <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ flex: '1 1 45%' }}>
                   <a
-                    href="https://linkedin.com"
+                    href="https://t.me/NguyenDinhDang"
                     target="_blank"
                     rel="noreferrer"
                     className="btn btn-outline"
-                    style={{ justifyContent: 'space-between', width: '100%', boxSizing: 'border-box' }}
+                    style={{ width: '100%', boxSizing: 'border-box' }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                      </svg>
-                      <span>LinkedIn Profile</span>
-                    </div>
-                    <ArrowUpRight size={14} />
+                    <Send size={14} />
+                    <span>Telegram</span>
                   </a>
                 </motion.div>
               </div>
@@ -219,24 +215,194 @@ export const Contact: React.FC = () => {
           </div>
         </RevealSection>
 
-        {/* Response Commitment Box */}
-        <div
-          style={{
-            padding: '2rem',
-            backgroundColor: 'var(--bg-secondary)',
-            border: '1px solid var(--border)',
-            borderRadius: '6px',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'var(--text-xs)',
-            color: 'var(--text-secondary)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-          }}
-        >
-          <span style={{ color: '#22c55e' }}>●</span>
-          <span>LOCATION: VIETNAM (UTC+7) // TYPICAL RESPONSE TIME: WITHIN 24 HOURS</span>
-        </div>
+        {/* Direct Project Brief Form */}
+        <RevealSection watermarkText="TRAO ĐỔI">
+          <motion.div
+            variants={itemFadeUpVariants}
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              padding: 'clamp(2rem, 4vw, 3.5rem)',
+              maxWidth: '800px',
+              marginInline: 'auto',
+            }}
+          >
+            <div className="eyebrow" style={{ marginBottom: '0.5rem' }}>
+              [ BIỂU MẪU YÊU CẦU DỰ ÁN ]
+            </div>
+            <h2 className="section-title" style={{ marginBottom: '1rem' }}>
+              GỬI TIN NHẮN TRỰC TIẾP
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', marginBottom: '2.5rem', lineHeight: 1.6 }}>
+              Vui lòng để lại thông tin liên hệ và tóm tắt yêu cầu, tôi sẽ phản hồi lại bạn trong vòng 24 giờ.
+            </p>
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
+                <div>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 'var(--text-xs)',
+                      color: 'var(--text-secondary)',
+                      textTransform: 'uppercase',
+                      marginBottom: '0.5rem',
+                      letterSpacing: '0.08em',
+                    }}
+                  >
+                    Họ và Tên *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="Nguyễn Văn A"
+                    style={{
+                      width: '100%',
+                      padding: '0.875rem 1rem',
+                      backgroundColor: 'var(--bg-surface)',
+                      border: '1px solid var(--border)',
+                      borderRadius: '4px',
+                      color: 'var(--text-primary)',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 'var(--text-sm)',
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 'var(--text-xs)',
+                      color: 'var(--text-secondary)',
+                      textTransform: 'uppercase',
+                      marginBottom: '0.5rem',
+                      letterSpacing: '0.08em',
+                    }}
+                  >
+                    Địa Chỉ Email *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="email@domain.com"
+                    style={{
+                      width: '100%',
+                      padding: '0.875rem 1rem',
+                      backgroundColor: 'var(--bg-surface)',
+                      border: '1px solid var(--border)',
+                      borderRadius: '4px',
+                      color: 'var(--text-primary)',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 'var(--text-sm)',
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 'var(--text-xs)',
+                    color: 'var(--text-secondary)',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.5rem',
+                    letterSpacing: '0.08em',
+                  }}
+                >
+                  Chủ Đề & Phạm Vi Dự Án
+                </label>
+                <input
+                  type="text"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  placeholder="Xây dựng API Backend / Tích hợp RAG / Tư vấn kiến trúc"
+                  style={{
+                    width: '100%',
+                    padding: '0.875rem 1rem',
+                    backgroundColor: 'var(--bg-surface)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '4px',
+                    color: 'var(--text-primary)',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 'var(--text-sm)',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 'var(--text-xs)',
+                    color: 'var(--text-secondary)',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.5rem',
+                    letterSpacing: '0.08em',
+                  }}
+                >
+                  Nội Dung Chi Tiết *
+                </label>
+                <textarea
+                  required
+                  rows={5}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="Mô tả bối cảnh bài toán, mục tiêu, công nghệ mong muốn hoặc thời hạn dự kiến..."
+                  style={{
+                    width: '100%',
+                    padding: '0.875rem 1rem',
+                    backgroundColor: 'var(--bg-surface)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '4px',
+                    color: 'var(--text-primary)',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 'var(--text-sm)',
+                    outline: 'none',
+                    resize: 'vertical',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="btn btn-primary"
+                style={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}
+              >
+                {formSubmitted ? (
+                  <>
+                    <Check size={16} />
+                    <span>Đã gửi thành công! Cảm ơn bạn.</span>
+                  </>
+                ) : (
+                  <>
+                    <Send size={16} />
+                    <span>Gửi Tin Nhắn Trao Đổi</span>
+                  </>
+                )}
+              </motion.button>
+            </form>
+          </motion.div>
+        </RevealSection>
       </div>
     </main>
   );

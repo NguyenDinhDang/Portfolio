@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowUpRight, Award, ShieldCheck, Terminal, Cpu } from 'lucide-react';
+import { PowerPointBadgeContainer, PowerPointBadgeItem } from './PowerPointBadgeGroup';
 
 export interface CoverflowItem {
   id: string;
@@ -17,41 +18,41 @@ export interface CoverflowItem {
 const DEFAULT_COVERFLOW_ITEMS: CoverflowItem[] = [
   {
     id: '1',
-    title: 'High-Concurrency FastAPI Microservices',
-    category: 'Architecture Certification // Level IV',
+    title: 'Vi dịch vụ FastAPI Đồng thời cao',
+    category: 'Chứng nhận Kiến trúc // Cấp độ IV',
     issuer: 'Distributed Systems Council',
     date: '2025 - 2026',
-    description: 'Zero-downtime asynchronous event loops, PostgreSQL connection pooling with asyncpg, and Redis cluster failover mechanisms.',
+    description: 'Vòng lặp sự kiện bất đồng bộ zero-downtime, quản lý connection pool PostgreSQL với asyncpg và cơ chế chuyển đổi dự phòng cụm Redis.',
     tags: ['FastAPI', 'Python 3.12', 'AsyncIO', 'PostgreSQL'],
     iconType: 'cpu',
   },
   {
     id: '2',
-    title: 'Production RAG & Vector Search Engineering',
-    category: 'Applied AI Specialization',
+    title: 'Kỹ nghệ RAG & Tìm kiếm Vector Production',
+    category: 'Chuyên môn AI Ứng dụng',
     issuer: 'Deep Learning & Retrieval Guild',
     date: '2025',
-    description: 'High-recall hybrid search pipelines combining dense vector embeddings with BM25 sparse re-ranking and contextual filtering.',
+    description: 'Đường ống tìm kiếm hỗn hợp độ bao phủ cao kết hợp vector dense embedding và tái xếp hạng thưa BM25 cùng lọc theo ngữ cảnh.',
     tags: ['pgvector', 'FAISS', 'Hybrid Search', 'LangChain'],
     iconType: 'terminal',
   },
   {
     id: '3',
-    title: 'ACID Data Integrity & Distributed Transactions',
-    category: 'Database Systems Mastery',
+    title: 'Toàn vẹn Dữ liệu ACID & Giao dịch Phân tán',
+    category: 'Làm chủ Hệ thống CSDL',
     issuer: 'Database Architecture Institute',
     date: '2024 - 2025',
-    description: 'Strict transactional boundaries, optimistic concurrency control, two-phase commits, and resilient indexing strategies under high write loads.',
+    description: 'Ranh giới giao dịch nghiêm ngặt, kiểm soát đồng thời lạc quan, và chiến lược đánh chỉ mục bền bỉ dưới tải ghi lớn.',
     tags: ['PostgreSQL', 'Redis', 'Alembic', 'Data Modeling'],
     iconType: 'shield',
   },
   {
     id: '4',
-    title: 'Anti-Gravity Motion & WebGL Graphics',
-    category: 'Creative Engineering Excellence',
+    title: 'Chuyển động Anti-Gravity & Đồ họa WebGL',
+    category: 'Kỹ nghệ Sáng tạo Xuất sắc',
     issuer: 'Interactive Systems Foundation',
     date: '2026',
-    description: 'Mathematical Euler physics repulsion, 60fps WebGL GPU optimization, and cinematic fluid micro-interactions.',
+    description: 'Lực đẩy vật lý toán học Euler, tối ưu hóa GPU WebGL 60 FPS và vi tương tác cinematic mượt mà.',
     tags: ['Three.js', 'Framer Motion', 'Canvas 2D', 'TypeScript'],
     iconType: 'award',
   },
@@ -272,7 +273,7 @@ export const CoverflowCarousel: React.FC<CoverflowCarouselProps> = ({
                 </div>
 
                 <div>
-                  <div
+                  <PowerPointBadgeContainer
                     style={{
                       display: 'flex',
                       flexWrap: 'wrap',
@@ -280,23 +281,25 @@ export const CoverflowCarousel: React.FC<CoverflowCarouselProps> = ({
                       marginBottom: item.issuer ? '1rem' : 0,
                     }}
                   >
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.7rem',
-                          color: 'var(--text-primary)',
-                          backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                          border: '1px solid var(--border)',
-                          padding: '0.2rem 0.5rem',
-                          borderRadius: '3px',
-                        }}
-                      >
-                        {tag}
-                      </span>
+                    {item.tags.map((tag, idx) => (
+                      <PowerPointBadgeItem key={tag} index={idx} alternateHorizontal={true}>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.7rem',
+                            color: 'var(--text-primary)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                            border: '1px solid var(--border)',
+                            padding: '0.2rem 0.5rem',
+                            borderRadius: '3px',
+                            display: 'inline-block',
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      </PowerPointBadgeItem>
                     ))}
-                  </div>
+                  </PowerPointBadgeContainer>
 
                   {item.issuer && (
                     <div

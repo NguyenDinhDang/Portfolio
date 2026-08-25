@@ -32,8 +32,8 @@ export const Footer: React.FC = () => {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.75rem',
-                fontWeight: 900,
-                letterSpacing: '-0.04em',
+                fontWeight: 700,
+                letterSpacing: '-0.03em',
                 marginBottom: '1rem',
               }}
             >
@@ -198,7 +198,7 @@ export const Footer: React.FC = () => {
               color: 'var(--text-muted)',
             }}
           >
-            © {new Date().getFullYear()} ĐẶNG ĐÌNH NGUYỄN. ALL RIGHTS RESERVED.
+            © {new Date().getFullYear()} ĐẶNG ĐÌNH NGUYỄN. BẢO LƯU MỌI QUYỀN.
           </div>
 
           <button

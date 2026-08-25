@@ -34,3 +34,39 @@ export const itemScaleVariants: Variants = {
     },
   },
 };
+
+/**
+ * PowerPoint Stagger Container Variant
+ */
+export const powerPointContainerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+/**
+ * PowerPoint Zoom / Bounce Spring Variant
+ */
+export const powerPointBadgeVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.6,
+    y: 20,
+    rotate: -3,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    rotate: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 18,
+    },
+  },
+};
