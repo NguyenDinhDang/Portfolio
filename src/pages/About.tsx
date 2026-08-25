@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
-import { RevealSection, itemFadeUpVariants, itemScaleVariants } from '../components/motion/RevealSection';
+import { RevealSection } from '../components/motion/RevealSection';
+import { itemFadeUpVariants, itemScaleVariants } from '../components/motion/motionVariants';
 import { skillCategories, aiWorkflowSteps } from '../data/skills';
 import { useAntiGravity } from '../hooks/useAntiGravity';
 

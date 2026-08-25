@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Briefcase } from 'lucide-react';
-import { RevealSection, itemFadeUpVariants } from '../components/motion/RevealSection';
+import { RevealSection } from '../components/motion/RevealSection';
+import { itemFadeUpVariants } from '../components/motion/motionVariants';
 import { experiences } from '../data/experience';
 import { useAntiGravity } from '../hooks/useAntiGravity';
 

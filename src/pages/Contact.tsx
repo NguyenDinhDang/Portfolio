@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Check, Copy, ArrowUpRight } from 'lucide-react';
-import { RevealSection, itemFadeUpVariants } from '../components/motion/RevealSection';
+import { RevealSection } from '../components/motion/RevealSection';
+import { itemFadeUpVariants } from '../components/motion/motionVariants';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = useState(false);
