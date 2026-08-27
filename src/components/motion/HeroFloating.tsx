@@ -33,9 +33,9 @@ export interface HeroFloatingProps {
 export const HeroFloating: React.FC<HeroFloatingProps> = ({
   enableParticles = true,
   enableThreeScene = false,
-  line1 = 'ĐẶNG ĐÌNH NGUYỄN',
-  line2Prefix = 'KỸ SƯ ',
-  line2Accent = 'HỆ THỐNG',
+  line1 = 'DANG DINH NGUYEN',
+  line2Prefix = 'SYSTEM ',
+  line2Accent = 'ARCHITECT',
 }) => {
   return (
     <section
