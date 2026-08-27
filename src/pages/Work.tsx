@@ -6,6 +6,8 @@ import { RevealSection } from '../components/motion/RevealSection';
 import { itemFadeUpVariants } from '../components/motion/motionVariants';
 import { PowerPointBadgeContainer, PowerPointBadgeItem } from '../components/motion/PowerPointBadgeGroup';
 import { useAntiGravity } from '../hooks/useAntiGravity';
+import { TechIcon } from '../components/ui/tech-icon';
+import { Button } from '../components/ui/button';
 
 interface LocalizedProject {
   slug: string;
@@ -157,17 +159,12 @@ export const Work: React.FC = () => {
                     </span>
                   </div>
 
-                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                    <NavLink
-                      to={`/work/${project.slug}`}
-                      className="btn btn-outline"
-                      data-cursor="CASE STUDY"
-                      style={{ padding: '0.45rem 0.95rem', fontSize: 'var(--text-xs)' }}
-                    >
+                  <NavLink to={`/work/${project.slug}`}>
+                    <Button variant="outline" size="sm" data-cursor="CASE STUDY">
                       <span>Xem Case Study Chi Tiết</span>
                       <ArrowUpRight size={14} />
-                    </NavLink>
-                  </motion.div>
+                    </Button>
+                  </NavLink>
                 </div>
 
                 <h2
@@ -264,13 +261,16 @@ export const Work: React.FC = () => {
                             fontSize: '0.75rem',
                             color: 'var(--text-primary)',
                             backgroundColor: 'var(--bg-secondary)',
-                            padding: '0.3rem 0.6rem',
+                            padding: '0.35rem 0.65rem',
                             borderRadius: '3px',
                             border: '1px solid var(--border)',
-                            display: 'inline-block',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.4rem',
                           }}
                         >
-                          {t}
+                          <TechIcon name={t} size={13} color="var(--accent)" />
+                          <span>{t}</span>
                         </span>
                       </PowerPointBadgeItem>
                     ))}

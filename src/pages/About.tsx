@@ -6,6 +6,8 @@ import { RevealSection } from '../components/motion/RevealSection';
 import { itemFadeUpVariants, itemScaleVariants } from '../components/motion/motionVariants';
 import { PowerPointBadgeContainer, PowerPointBadgeItem } from '../components/motion/PowerPointBadgeGroup';
 import { useAntiGravity } from '../hooks/useAntiGravity';
+import { TechIcon } from '../components/ui/tech-icon';
+import { Badge } from '../components/ui/badge';
 
 export const About: React.FC = () => {
   useAntiGravity('.ag-target', {
@@ -398,24 +400,19 @@ export const About: React.FC = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          padding: '0.5rem 0.75rem',
+                          padding: '0.55rem 0.85rem',
                           backgroundColor: 'var(--bg-secondary)',
                           borderRadius: '4px',
                           border: '1px solid var(--border)',
                         }}
                       >
-                        <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-primary)' }}>{s.name}</span>
-                        <span
-                          className="ag-target"
-                          style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '0.7rem',
-                            color: 'var(--accent)',
-                            display: 'inline-block',
-                          }}
-                        >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                          <TechIcon name={s.name} size={15} color="var(--accent)" />
+                          <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-primary)' }}>{s.name}</span>
+                        </div>
+                        <Badge variant="accent" className="ag-target text-[0.7rem] px-2 py-0.5">
                           {s.level}
-                        </span>
+                        </Badge>
                       </div>
                     </PowerPointBadgeItem>
                   ))}

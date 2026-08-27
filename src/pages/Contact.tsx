@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Check, Copy, ArrowUpRight, Send, MessageSquare, Code2 } from 'lucide-react';
+import { Mail, Check, Copy, ArrowUpRight, Send, MessageSquare } from 'lucide-react';
+import { SiGithub } from 'react-icons/si';
 import { RevealSection } from '../components/motion/RevealSection';
 import { itemFadeUpVariants } from '../components/motion/motionVariants';
+import { Button } from '../components/ui/button';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -103,22 +105,19 @@ export const Contact: React.FC = () => {
               </div>
 
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ flexGrow: 1 }}>
-                  <a
-                    href={`mailto:${email}`}
-                    className="btn btn-primary"
-                    style={{ width: '100%', boxSizing: 'border-box' }}
-                  >
+                <a
+                  href={`mailto:${email}`}
+                  style={{ flexGrow: 1 }}
+                >
+                  <Button variant="primary" className="w-full">
                     <span>Soạn Email</span>
                     <ArrowUpRight size={14} />
-                  </a>
-                </motion.div>
+                  </Button>
+                </a>
 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <Button
+                  variant="outline"
                   onClick={copyEmail}
-                  className="btn btn-outline"
                   style={{ minWidth: '130px' }}
                 >
                   {copied ? (
@@ -132,7 +131,7 @@ export const Contact: React.FC = () => {
                       <span>Sao chép</span>
                     </>
                   )}
-                </motion.button>
+                </Button>
               </div>
             </motion.div>
 
@@ -185,31 +184,29 @@ export const Contact: React.FC = () => {
               </div>
 
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ flex: '1 1 45%' }}>
-                  <a
-                    href="https://github.com/NguyenDinhDang"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-outline"
-                    style={{ width: '100%', boxSizing: 'border-box' }}
-                  >
-                    <Code2 size={14} />
+                <a
+                  href="https://github.com/NguyenDinhDang"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ flex: '1 1 45%' }}
+                >
+                  <Button variant="outline" className="w-full gap-2">
+                    <SiGithub size={15} />
                     <span>GitHub</span>
-                  </a>
-                </motion.div>
+                  </Button>
+                </a>
 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ flex: '1 1 45%' }}>
-                  <a
-                    href="https://t.me/NguyenDinhDang"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-outline"
-                    style={{ width: '100%', boxSizing: 'border-box' }}
-                  >
+                <a
+                  href="https://t.me/NguyenDinhDang"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ flex: '1 1 45%' }}
+                >
+                  <Button variant="outline" className="w-full gap-2">
                     <Send size={14} />
                     <span>Telegram</span>
-                  </a>
-                </motion.div>
+                  </Button>
+                </a>
               </div>
             </motion.div>
           </div>

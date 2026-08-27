@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Tổng quan' },
@@ -131,7 +133,7 @@ export const Navbar: React.FC = () => {
           ))}
         </nav>
 
-        {/* Status Badge & CTA with Framer Motion hover/tap */}
+        {/* Status Badge & CTA with UI primitives */}
         <div
           style={{
             display: 'none',
@@ -140,51 +142,23 @@ export const Navbar: React.FC = () => {
           }}
           className="desktop-cta"
         >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'var(--text-xs)',
-              color: 'var(--text-secondary)',
-              padding: '0.35rem 0.75rem',
-              borderRadius: '999px',
-              border: '1px solid var(--border)',
-              backgroundColor: 'var(--bg-secondary)',
-              letterSpacing: '0.06em',
-            }}
-          >
-            <span
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                backgroundColor: '#22c55e',
-                boxShadow: '0 0 8px rgba(34, 197, 94, 0.6)',
-              }}
-            />
-            <span>SẴN SÀNG HỢP TÁC</span>
-          </div>
+          <Badge variant="outline" className="gap-2 px-3 py-1 bg-[var(--bg-secondary)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#22c55e] shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+            <span className="tracking-wide">SẴN SÀNG HỢP TÁC</span>
+          </Badge>
 
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2 }}
-          >
-            <NavLink
-              to="/contact"
-              className="btn btn-primary"
+          <NavLink to="/contact">
+            <Button
+              variant="primary"
+              size="sm"
               style={{
-                padding: '0.5rem 1rem',
-                fontSize: 'var(--text-xs)',
                 boxShadow: '0 0 15px rgba(255, 51, 68, 0.25)',
               }}
             >
-              <span>Kết Nối Ngay</span>
-              <ArrowUpRight size={14} />
-            </NavLink>
-          </motion.div>
+              <span>Thảo Luận</span>
+              <ArrowUpRight size={12} />
+            </Button>
+          </NavLink>
         </div>
 
         {/* Mobile Hamburger Toggle */}

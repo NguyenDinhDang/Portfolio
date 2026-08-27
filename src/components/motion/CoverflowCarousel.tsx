@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowUpRight, Award, ShieldCheck, Terminal, Cpu } from 'lucide-react';
 import { PowerPointBadgeContainer, PowerPointBadgeItem } from './PowerPointBadgeGroup';
+import { Button } from '../ui/button';
 
 export interface CoverflowItem {
   id: string;
@@ -64,63 +67,44 @@ interface CoverflowCarouselProps {
 }
 
 /**
- * Đạo hữu xin nương tay, trận pháp Coverflow 3D xoay chuyển càn khôn này
- * đang tính toán tọa độ Perspective và Euler Rotation cực kỳ chính xác.
- * Chớ dại sửa đổi hệ số Offset và Góc xoay kẻo không gian 3 chiều vỡ vụn, rơi vào hư vô!
+ * Đạo hữu xin nương tay, trận pháp Embla Coverflow Càn Khôn Vòng Chuyển này
+ * đang kết hợp đồng bộ con lăn Embla Physics cùng ma trận phối cảnh 3D Perspective.
+ * Chớ dại tùy tiện can thiệp trục Scroll Snap kẻo pháp trận đảo lộn,
+ * tâm trí rơi vào hư không vô định!
  */
 export const CoverflowCarousel: React.FC<CoverflowCarouselProps> = ({
   items = DEFAULT_COVERFLOW_ITEMS,
   className,
 }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev > 0 ? prev - 1 : items.length - 1));
-  };
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: 'center',
+      skipSnaps: false,
+    },
+    [Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })]
+  );
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev < items.length - 1 ? prev + 1 : 0));
-  };
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
 
-  const getCardStyle = (index: number) => {
-    const total = items.length;
-    let diff = index - activeIndex;
-
-    // Support circular navigation offset calculation
-    if (diff > total / 2) diff -= total;
-    if (diff < -total / 2) diff += total;
-
-    const isActive = diff === 0;
-    const isAdjacent = Math.abs(diff) === 1;
-
-    if (shouldReduceMotion) {
-      return {
-        x: diff * 280,
-        scale: isActive ? 1 : 0.9,
-        opacity: isActive ? 1 : isAdjacent ? 0.4 : 0,
-        zIndex: isActive ? 10 : 10 - Math.abs(diff),
-        rotateY: 0,
-        pointerEvents: isActive ? ('auto' as const) : ('none' as const),
-      };
-    }
-
-    // 3D Coverflow positioning
-    const xOffset = diff * 220;
-    const rotateY = diff < 0 ? 18 : diff > 0 ? -18 : 0;
-    const scale = isActive ? 1 : isAdjacent ? 0.86 : 0.72;
-    const opacity = isActive ? 1 : isAdjacent ? 0.55 : 0;
-    const zIndex = isActive ? 10 : 10 - Math.abs(diff);
-
-    return {
-      x: xOffset,
-      scale,
-      opacity,
-      rotateY,
-      zIndex,
-      pointerEvents: isActive ? ('auto' as const) : isAdjacent ? ('auto' as const) : ('none' as const),
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+      emblaApi.off('reInit', onSelect);
     };
-  };
+  }, [emblaApi, onSelect]);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   const getIcon = (type?: string) => {
     switch (type) {
@@ -146,186 +130,237 @@ export const CoverflowCarousel: React.FC<CoverflowCarouselProps> = ({
         overflow: 'hidden',
       }}
     >
-      {/* 3D Perspective Stage */}
+      {/* Embla Viewport */}
       <div
+        ref={emblaRef}
         style={{
-          position: 'relative',
-          height: '380px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          perspective: '1100px',
-          transformStyle: 'preserve-3d',
+          overflow: 'hidden',
+          width: '100%',
+          perspective: '1200px',
         }}
       >
-        <AnimatePresence initial={false}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            transformStyle: 'preserve-3d',
+            paddingBlock: '2rem',
+          }}
+        >
           {items.map((item, index) => {
-            const cardState = getCardStyle(index);
-            const isActive = index === activeIndex;
+            const total = items.length;
+            let diff = index - selectedIndex;
+            if (diff > total / 2) diff -= total;
+            if (diff < -total / 2) diff += total;
+
+            const isActive = diff === 0;
+            const isAdjacent = Math.abs(diff) === 1;
+
+            const scale = shouldReduceMotion
+              ? 1
+              : isActive
+              ? 1
+              : isAdjacent
+              ? 0.88
+              : 0.78;
+            const opacity = isActive ? 1 : isAdjacent ? 0.6 : 0.25;
+            const rotateY = shouldReduceMotion
+              ? 0
+              : diff < 0
+              ? 16
+              : diff > 0
+              ? -16
+              : 0;
 
             return (
-              <motion.div
+              <div
                 key={item.id}
-                onClick={() => {
-                  if (!isActive) setActiveIndex(index);
-                }}
-                animate={{
-                  x: cardState.x,
-                  scale: cardState.scale,
-                  opacity: cardState.opacity,
-                  rotateY: cardState.rotateY,
-                  zIndex: cardState.zIndex,
-                }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 220,
-                  damping: 24,
-                  mass: 0.8,
-                }}
-                drag={isActive ? 'x' : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.25}
-                onDragEnd={(_e, { offset }) => {
-                  const swipeThreshold = 50;
-                  if (offset.x > swipeThreshold) {
-                    handlePrev();
-                  } else if (offset.x < -swipeThreshold) {
-                    handleNext();
-                  }
-                }}
                 style={{
-                  position: 'absolute',
-                  width: 'clamp(280px, 85vw, 440px)',
-                  minHeight: '300px',
-                  backgroundColor: isActive ? 'var(--bg-surface)' : 'var(--bg-secondary)',
-                  border: isActive ? '1px solid var(--border-accent)' : '1px solid var(--border)',
-                  borderRadius: '10px',
-                  padding: '2rem',
-                  boxShadow: isActive ? '0 16px 40px rgba(0, 0, 0, 0.7), 0 0 30px var(--accent-glow)' : '0 8px 24px rgba(0, 0, 0, 0.4)',
-                  cursor: isActive ? 'grab' : 'pointer',
-                  userSelect: 'none',
-                  willChange: 'transform, opacity',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
+                  flex: '0 0 clamp(290px, 80vw, 440px)',
+                  marginInline: '1.25rem',
+                  minWidth: 0,
+                  transformStyle: 'preserve-3d',
                 }}
               >
-                <div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      marginBottom: '1.25rem',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      {getIcon(item.iconType)}
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: 'var(--text-xs)',
-                          color: 'var(--accent)',
-                          letterSpacing: '0.08em',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                        {item.category}
-                      </span>
-                    </div>
-                    {item.date && (
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.7rem',
-                          color: 'var(--text-muted)',
-                        }}
-                      >
-                        {item.date}
-                      </span>
-                    )}
-                  </div>
-
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '1.35rem',
-                      fontWeight: 800,
-                      letterSpacing: '-0.02em',
-                      color: 'var(--text-primary)',
-                      marginBottom: '0.75rem',
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p
-                    style={{
-                      fontSize: 'var(--text-sm)',
-                      color: 'var(--text-secondary)',
-                      lineHeight: 1.6,
-                      marginBottom: '1.5rem',
-                    }}
-                  >
-                    {item.description}
-                  </p>
-                </div>
-
-                <div>
-                  <PowerPointBadgeContainer
-                    style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '0.4rem',
-                      marginBottom: item.issuer ? '1rem' : 0,
-                    }}
-                  >
-                    {item.tags.map((tag, idx) => (
-                      <PowerPointBadgeItem key={tag} index={idx} alternateHorizontal={true}>
+                <motion.div
+                  animate={{
+                    scale,
+                    opacity,
+                    rotateY,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  style={{
+                    width: '100%',
+                    minHeight: '320px',
+                    backgroundColor: isActive ? 'var(--bg-surface)' : 'var(--bg-secondary)',
+                    border: isActive ? '1px solid var(--border-accent)' : '1px solid var(--border)',
+                    borderRadius: '10px',
+                    padding: '2rem',
+                    boxShadow: isActive
+                      ? '0 16px 40px rgba(0, 0, 0, 0.7), 0 0 30px var(--accent-glow)'
+                      : '0 8px 24px rgba(0, 0, 0, 0.4)',
+                    cursor: 'grab',
+                    userSelect: 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: '1.25rem',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                        {getIcon(item.iconType)}
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: 'var(--text-xs)',
+                            color: 'var(--accent)',
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          {item.category}
+                        </span>
+                      </div>
+                      {item.date && (
                         <span
                           style={{
                             fontFamily: 'var(--font-mono)',
                             fontSize: '0.7rem',
-                            color: 'var(--text-primary)',
-                            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                            border: '1px solid var(--border)',
-                            padding: '0.2rem 0.5rem',
-                            borderRadius: '3px',
-                            display: 'inline-block',
+                            color: 'var(--text-muted)',
                           }}
                         >
-                          {tag}
+                          {item.date}
                         </span>
-                      </PowerPointBadgeItem>
-                    ))}
-                  </PowerPointBadgeContainer>
+                      )}
+                    </div>
 
-                  {item.issuer && (
+                    <h3
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.35rem',
+                        fontWeight: 800,
+                        letterSpacing: '-0.02em',
+                        color: 'var(--text-primary)',
+                        marginBottom: '0.75rem',
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+
+                    <p
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--text-secondary)',
+                        lineHeight: 1.6,
+                        marginBottom: '1.5rem',
+                      }}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <div>
+                    {/* Technical Tag Group */}
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <PowerPointBadgeContainer>
+                        {item.tags.map((tag) => (
+                          <PowerPointBadgeItem key={tag}>
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '0.7rem',
+                                padding: '0.2rem 0.6rem',
+                                borderRadius: '4px',
+                                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                                border: '1px solid var(--border)',
+                                color: 'var(--text-secondary)',
+                              }}
+                            >
+                              {tag}
+                            </span>
+                          </PowerPointBadgeItem>
+                        ))}
+                      </PowerPointBadgeContainer>
+                    </div>
+
+                    {/* Footer Row */}
                     <div
                       style={{
-                        paddingTop: '0.75rem',
-                        borderTop: '1px solid var(--border)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: 'var(--text-xs)',
-                        color: 'var(--text-muted)',
+                        paddingTop: '1rem',
+                        borderTop: '1px solid var(--border)',
                       }}
                     >
-                      <span>{item.issuer}</span>
-                      <ArrowUpRight size={14} color="var(--accent)" />
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.75rem',
+                          color: 'var(--text-muted)',
+                        }}
+                      >
+                        {item.issuer || 'System Architecture'}
+                      </span>
+
+                      {item.link ? (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            color: 'var(--accent)',
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.75rem',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            textDecoration: 'none',
+                          }}
+                        >
+                          <span>Verify</span>
+                          <ArrowUpRight size={12} />
+                        </a>
+                      ) : (
+                        <div
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            color: 'var(--text-muted)',
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.75rem',
+                          }}
+                        >
+                          <ShieldCheck size={12} color="var(--accent)" />
+                          <span>Architect Certified</span>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              </motion.div>
+                  </div>
+                </motion.div>
+              </div>
             );
           })}
-        </AnimatePresence>
+        </div>
       </div>
 
-      {/* Carousel Navigation Controls */}
+      {/* Navigation Controls & Indicators */}
       <div
         style={{
           display: 'flex',
@@ -335,77 +370,44 @@ export const CoverflowCarousel: React.FC<CoverflowCarouselProps> = ({
           marginTop: '1.5rem',
         }}
       >
-        <button
-          onClick={handlePrev}
-          aria-label="Previous slide"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            backgroundColor: 'var(--bg-surface)',
-            border: '1px solid var(--border)',
-            color: 'var(--text-primary)',
-            transition: 'all var(--transition-fast)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--accent)';
-            e.currentTarget.style.color = 'var(--accent)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'var(--border)';
-            e.currentTarget.style.color = 'var(--text-primary)';
-          }}
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={scrollPrev}
+          aria-label="Previous Slide"
         >
           <ChevronLeft size={18} />
-        </button>
+        </Button>
 
-        {/* Indicator dots */}
+        {/* Indicators */}
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           {items.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => setActiveIndex(idx)}
+              onClick={() => emblaApi && emblaApi.scrollTo(idx)}
               aria-label={`Go to slide ${idx + 1}`}
               style={{
-                width: idx === activeIndex ? '20px' : '6px',
+                width: idx === selectedIndex ? '24px' : '6px',
                 height: '6px',
-                borderRadius: '3px',
-                backgroundColor: idx === activeIndex ? 'var(--accent)' : 'var(--border-strong)',
-                transition: 'all 0.3s ease',
+                borderRadius: '999px',
+                backgroundColor: idx === selectedIndex ? 'var(--accent)' : 'var(--border-strong)',
+                transition: 'all 0.3s var(--ease-cinematic)',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
               }}
             />
           ))}
         </div>
 
-        <button
-          onClick={handleNext}
-          aria-label="Next slide"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            backgroundColor: 'var(--bg-surface)',
-            border: '1px solid var(--border)',
-            color: 'var(--text-primary)',
-            transition: 'all var(--transition-fast)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--accent)';
-            e.currentTarget.style.color = 'var(--accent)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'var(--border)';
-            e.currentTarget.style.color = 'var(--text-primary)';
-          }}
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={scrollNext}
+          aria-label="Next Slide"
         >
           <ChevronRight size={18} />
-        </button>
+        </Button>
       </div>
     </div>
   );

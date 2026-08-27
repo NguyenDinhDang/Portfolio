@@ -9,6 +9,7 @@ import { itemFadeUpVariants, itemScaleVariants } from '../components/motion/moti
 import { CoverflowCarousel } from '../components/motion/CoverflowCarousel';
 import { PowerPointBadgeContainer, PowerPointBadgeItem } from '../components/motion/PowerPointBadgeGroup';
 import { useAntiGravity } from '../hooks/useAntiGravity';
+import { TechIcon } from '../components/ui/tech-icon';
 
 interface LocalizedHomeProject {
   slug: string;
@@ -592,11 +593,14 @@ export const Home: React.FC = () => {
                           padding: '0.4rem 0.75rem',
                           borderRadius: '4px',
                           border: '1px solid var(--border)',
-                          display: 'inline-block',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.45rem',
                           cursor: 'default',
                         }}
                       >
-                        {s}
+                        <TechIcon name={s} size={13} color="var(--accent)" />
+                        <span>{s}</span>
                       </span>
                     </PowerPointBadgeItem>
                   ))}

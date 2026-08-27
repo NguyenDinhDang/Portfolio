@@ -5,6 +5,8 @@ import { projects } from '../data/projects';
 import { PowerPointBadgeContainer, PowerPointBadgeItem } from '../components/motion/PowerPointBadgeGroup';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useAntiGravity } from '../hooks/useAntiGravity';
+import { TechIcon } from '../components/ui/tech-icon';
+import { Button } from '../components/ui/button';
 
 interface ProjectLocalization {
   category: string;
@@ -358,10 +360,13 @@ export const ProjectDetail: React.FC = () => {
                     padding: '0.5rem 1rem',
                     borderRadius: '4px',
                     border: '1px solid var(--border)',
-                    display: 'inline-block',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.45rem',
                   }}
                 >
-                  {t}
+                  <TechIcon name={t} size={15} color="var(--accent)" />
+                  <span>{t}</span>
                 </span>
               </PowerPointBadgeItem>
             ))}
@@ -380,20 +385,18 @@ export const ProjectDetail: React.FC = () => {
             gap: '1rem',
           }}
         >
-          <NavLink
-            to="/work"
-            className="btn btn-outline"
-          >
-            <ArrowLeft size={16} />
-            <span>Tất cả dự án</span>
+          <NavLink to="/work">
+            <Button variant="outline">
+              <ArrowLeft size={16} />
+              <span>Tất cả dự án</span>
+            </Button>
           </NavLink>
 
-          <NavLink
-            to="/contact"
-            className="btn btn-primary"
-          >
-            <span>Trao đổi về kiến trúc này</span>
-            <ArrowUpRight size={16} />
+          <NavLink to="/contact">
+            <Button variant="primary">
+              <span>Trao đổi về kiến trúc này</span>
+              <ArrowUpRight size={14} />
+            </Button>
           </NavLink>
         </div>
       </div>
