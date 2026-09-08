@@ -1,0 +1,116 @@
+@import "@fontsource/be-vietnam-pro/300.css";
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "@fontsource/be-vietnam-pro/800.css";
+@import "@fontsource/be-vietnam-pro/900.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --h1: 3.5rem;
+  --h2: 3rem;
+  --h3: 2.145rem;
+  --h4: 1.5rem;
+  --text-large: 1.6rem;
+  --text-medium: 1.275rem;
+  --text-small: 1.125rem;
+
+  --gradient-brand: radial-gradient(
+      at 60% 31%,
+      rgb(255, 131, 139) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 48% 98%, rgba(0, 255, 166, 0.707) 0px, transparent 50%),
+    radial-gradient(at 84% 67%, rgb(255, 129, 125) 0px, transparent 50%),
+    radial-gradient(at 16% 47%, rgb(255, 90, 112) 0px, transparent 50%),
+    radial-gradient(at 73% 11%, rgb(115, 255, 225) 0px, transparent 50%),
+    radial-gradient(at 49% 37%, rgba(255, 249, 89, 0.695) 0px, transparent 50%),
+    radial-gradient(at 70% 21%, rgba(58, 255, 186, 0.715) 0px, transparent 50%);
+  --easing: cubic-bezier(0.86, 0, 0.07, 1);
+
+  --site-max-width: 1280px;
+  --gutter-nano: 0.5rem;
+  --gutter-micro: 1rem;
+  --gutter-x-small: 1.5rem;
+  --gutter-small: 2rem;
+  --gutter-medium: 2.5rem;
+  --gutter-large: 3rem;
+  --gutter-x-large: 6rem;
+  --gutter-huge: 12rem;
+
+  --scroll-padding: 4.375rem;
+  --radius: 85px;
+}
+
+body.dark,
+.dark body,
+html.dark body {
+  --bg-color-primary: #0c0a0a;
+  --bg-color-secondary: #161211;
+  --important: #fff;
+  --sub: #c3c3c3;
+  --body: #989898;
+  --border: #c0c0c015;
+  --border-dark: #c0c0c02f;
+  --gradient-border: linear-gradient(to left bottom, #777, #0e0d0d);
+  --shadow: 0 1rem 1rem #00000040;
+}
+
+body.light,
+.light body,
+html.light body {
+  --bg-color-primary: #fbfbfb;
+  --bg-color-secondary: #ffffff;
+  --important: #000;
+  --sub: #111;
+  --body: #585b63;
+  --border: #62626234;
+  --border-dark: #5e5e5e1f;
+  --gradient-border: linear-gradient(to left bottom, #000000c6, #0e0d0d00);
+  --shadow: 0 1rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-family: "Be Vietnam Pro", sans-serif;
+  box-sizing: border-box;
+  scroll-padding-top: var(--scroll-padding);
+}
+
+body {
+  font-size: var(--text-medium);
+  color: var(--body);
+  background-color: var(--bg-color-primary);
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Disable scroll when navigation menu is opened */
+body.lock-screen {
+  overflow-y: hidden;
+}
+
+picture,
+svg,
+img {
+  display: block;
+  max-inline-size: 100%;
+  object-fit: contain;
+}
+
+textarea {
+  resize: none;
+}
