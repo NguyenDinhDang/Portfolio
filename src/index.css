@@ -332,5 +332,59 @@ body.light .header-hero-bg,
   background-image: linear-gradient(#ffffffa2, #ffffffe6), url("/assets/images/hero-bg-light.webp");
 }
 
+/* Custom interactive link with animated underline */
+.link {
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--text-small);
+  padding: var(--gutter-nano) 0;
+  text-decoration: none;
+  color: var(--important);
+  position: relative;
+}
+
+.link::after,
+.link::before {
+  content: "";
+  width: 100%;
+  height: 1px;
+  margin-top: var(--gutter-nano);
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  transition: 300ms;
+}
+
+body.dark .link::before,
+.dark .link::before {
+  background-color: #d3d3d357;
+}
+
+body.dark .link::after,
+.dark .link::after {
+  background-color: white;
+}
+
+body.light .link::before,
+.light .link::before {
+  background-color: lightgray;
+}
+
+body.light .link::after,
+.light .link::after {
+  background-color: black;
+}
+
+.link::after {
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.link:hover::after,
+.link:focus::after {
+  transform: scaleX(1);
+}
+
+
 
 
