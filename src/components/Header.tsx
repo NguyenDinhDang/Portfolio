@@ -19,7 +19,10 @@ export const Header: React.FC<HeaderProps> = ({ isNavOpen, onToggleNav, menuBtnR
       return () => clearTimeout(timer);
     } else {
       document.body.classList.remove('lock-screen');
-      setBtnText('menu');
+      const timer = setTimeout(() => {
+        setBtnText('menu');
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [isNavOpen]);
 

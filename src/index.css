@@ -536,6 +536,19 @@ body.light .logo,
   background-color: var(--track-active);
 }
 
+/* Main content wrapper with curved top overlap */
+main {
+  border-top: 1px solid var(--border);
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  background-color: var(--bg-color-primary);
+  transform: translateY(calc(-1 * var(--radius)));
+  position: relative;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+}
+
+
 
 
 

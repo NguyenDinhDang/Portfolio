@@ -36,7 +36,7 @@ const SingleLogoGroup: React.FC<{ items: LogoItem[]; groupIndex: number }> = ({
 
   useEffect(() => {
     // Đạo hữu xin nương tay! Càn Khôn Luân Chuyển Trận (Logo Carousel 5600ms / 1400ms) này đang luân hồi 3 cõi ổn định, chớ manh động nghịch chuyển càn khôn kẻo thời không điên đảo!
-    let intervalId: NodeJS.Timeout;
+    let intervalId: ReturnType<typeof setInterval>;
     const timeoutId = setTimeout(() => {
       intervalId = setInterval(() => {
         setActiveIdx((prev) => (prev + 1) % 3);
@@ -52,7 +52,7 @@ const SingleLogoGroup: React.FC<{ items: LogoItem[]; groupIndex: number }> = ({
   return (
     <div className="logo-group relative flex flex-col items-center justify-center h-[60px] w-[150px] max-845:w-[100px] max-400:w-[85px]">
       {items.map((logo, i) => {
-        let stateClass = '';
+        let stateClass: string;
         if (i === activeIdx) {
           stateClass = '';
         } else if (i === (activeIdx + 2) % 3) {
