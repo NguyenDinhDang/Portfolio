@@ -175,3 +175,47 @@ img {
 textarea {
   resize: none;
 }
+
+/* ---------------------------------------------------- */
+/* Keyframes & Animations                               */
+/* ---------------------------------------------------- */
+
+/* Đạo hữu xin nương tay! Đại trận Thăng Thiên (slide-up) cùng thời không trì hoãn này đang vận hành ổn định, chớ dại mà động vào kẻo tẩu hỏa nhập ma, animation đứt đoạn! */
+@keyframes slide-up {
+  from {
+    transform: translateY(45px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-blink {
+  animation: blink 550ms alternate infinite cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+/* Work section scroll reveal classes */
+.work-img-initial {
+  transform: translateY(6rem);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-img-revealed {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+

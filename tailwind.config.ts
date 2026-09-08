@@ -67,6 +67,19 @@ export default {
         'smooth-out': 'cubic-bezier(0.16, 1, 0.3, 1)',
         'logo-curve': 'cubic-bezier(0.25, 1, 0.5, 1)',
       },
+      keyframes: {
+        'slide-up': {
+          from: { transform: 'translateY(45px)', opacity: '0' },
+          to: { transform: 'none', opacity: '1' },
+        },
+        blink: {
+          '100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        'slide-up': 'slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
+        blink: 'blink 550ms alternate infinite cubic-bezier(0.86, 0, 0.07, 1)',
+      },
     },
   },
   plugins: [],
