@@ -44,6 +44,20 @@
     <title>Dang Dinh Nguyen's Portfolio</title>
   </head>
   <body>
+    <!-- Anti-FOUC theme initialization script -->
+    <script>
+      (function () {
+        try {
+          const theme = localStorage.getItem("theme") || "dark";
+          document.body.classList.add(theme);
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
