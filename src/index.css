@@ -385,6 +385,53 @@ body.light .link::after,
   transform: scaleX(1);
 }
 
+/* ---------------------------------------------------- */
+/* Logo Carousel Styles                                 */
+/* ---------------------------------------------------- */
+
+.logo {
+  position: absolute;
+  top: 0;
+  max-height: 60px;
+  max-width: 150px;
+  transition: all 2.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (max-width: 845px) {
+  .logo {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo {
+    max-width: 85px;
+  }
+}
+
+.logo.logo-hide {
+  opacity: 0;
+}
+
+.logo.logo-to-top {
+  transform: scale(0.4) translateY(-150px);
+}
+
+.logo.logo-to-bottom {
+  transform: scale(0.4) translateY(150px);
+}
+
+body.dark .logo,
+.dark .logo {
+  filter: invert(97%) grayscale(100%) opacity(0.6);
+}
+
+body.light .logo,
+.light .logo {
+  filter: grayscale(100%) opacity(0.6);
+}
+
+
 
 
 
