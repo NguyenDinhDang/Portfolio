@@ -219,7 +219,7 @@ export const Header: React.FC<HeaderProps> = ({
           <nav
             ref={navRef}
             aria-label="Điều hướng chính"
-            className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1.5 rounded-full border border-white/10 shadow-lg relative"
+            className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1.5 rounded-full border border-white/10 shadow-lg"
             style={{
               background:
                 theme === 'dark'
