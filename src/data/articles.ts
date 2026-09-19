@@ -1,51 +1,27 @@
 import type { ArticleItem } from '../types';
 
+/**
+ * ─────────────────────────────────────────────────────────────────
+ *  HƯỚNG DẪN THÊM BÀI VIẾT BLOG
+ * ─────────────────────────────────────────────────────────────────
+ *  1. Viết bài xong trên Notion → nhấn "Share" → bật "Share to web"
+ *  2. Copy link notion.site (hoặc super.so nếu đã setup)
+ *  3. Thêm object mới vào mảng bên dưới:
+ *
+ *  {
+ *    id: 'ten-bai-viet-khong-dau',   // unique, không có dấu cách
+ *    title: 'Tiêu đề bài viết',
+ *    description: 'Mô tả ngắn 1-2 câu',
+ *    url: 'https://your-notion-page-url-here',
+ *    date: '2026-09-19',             // định dạng YYYY-MM-DD
+ *    tags: ['Backend', 'Tips'],      // tuỳ chọn
+ *    readTime: '5 phút đọc',         // tuỳ chọn
+ *    imageSrc: 'assets/images/...',  // tuỳ chọn — thumbnail
+ *    isFeatured: true,               // tuỳ chọn — hiển thị nổi bật
+ *  }
+ * ─────────────────────────────────────────────────────────────────
+ */
+
 export const articles: ArticleItem[] = [
-  {
-    id: 'css-tips',
-    title: '22 Useful CSS Tips and Tricks Every Developer Should Know',
-    description:
-      'Note: All the tips, tricks shared in this article are part of my GitHub repository css tips tricks A handmade collection of pro css tips tricks for developers.',
-    url: 'https://dev.to/devsyedmohsin',
-    reactionCount: 416,
-    isFeatured: true,
-    imageSrc: 'assets/images/featured-blog.webp',
-    imageAlt: 'MacBook Pro',
-    date: '2026-08-10',
-    tags: ['CSS', 'Tips', 'Frontend'],
-    readTime: '8 phút đọc',
-  },
-  {
-    id: 'js-default-params',
-    title: 'JavaScript Default Function Parameters.',
-    description:
-      'In JavaScript when we call a function which expects some data to be passed in if you call that without passing',
-    url: 'https://dev.to/devsyedmohsin',
-    reactionCount: 47,
-    date: '2026-07-22',
-    tags: ['JavaScript', 'Beginner'],
-    readTime: '4 phút đọc',
-  },
-  {
-    id: 'portfolio-template',
-    title: 'Free Open-source portfolio template for developers ✨',
-    description:
-      'A beautiful, minimal and accessible portfolio template for Developers which is completely free and Open Source.',
-    url: 'https://dev.to/devsyedmohsin/free-open-source-portfolio-template-for-developers-4g1d',
-    reactionCount: 177,
-    date: '2026-06-15',
-    tags: ['Open Source', 'Portfolio'],
-    readTime: '5 phút đọc',
-  },
-  {
-    id: 'html-tips',
-    title: 'HTML tips and tricks.',
-    description:
-      'In my very last article I shared some JavaScript tips and tricks In this article I will be covering HTML tips and tricks.',
-    url: 'https://dev.to/devsyedmohsin',
-    reactionCount: 350,
-    date: '2026-05-30',
-    tags: ['HTML', 'Tips'],
-    readTime: '6 phút đọc',
-  },
+  // 👇 Thêm bài viết của bạn vào đây
 ];

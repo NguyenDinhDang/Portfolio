@@ -3,99 +3,73 @@ import { Link } from 'react-router-dom';
 import { articles } from '../data/articles';
 
 export const BlogSection: React.FC = () => {
-  const featuredArticle = articles.find((a) => a.isFeatured) || articles[0];
-  const regularArticles = articles.filter((a) => a.id !== featuredArticle.id).slice(0, 2);
+  const hasArticles = articles.length > 0;
 
   return (
     <section className="article pt-[var(--gutter-huge)]" id="blog">
       <div className="container">
         <div className="flex items-end justify-between mb-[var(--gutter-x-large)] flex-wrap gap-4">
-          <h2
-            id="blog-heading"
-            className="text-[var(--h2)] font-bold text-important"
-          >
-            Kinh nghiệm làm việc của tôi
+          <h2 className="text-[var(--h2)] font-bold text-important">
+            Blog của tôi
           </h2>
-          <Link
-            to="/blog"
-            className="link text-[var(--text-small)] font-semibold"
-          >
-            Xem tất cả bài viết →
+          <Link to="/blog" className="link text-[var(--text-small)] font-semibold">
+            Xem tất cả →
           </Link>
         </div>
 
-        <div className="article-boxes flex flex-row flex-wrap gap-[3.5%] max-985:max-w-[685px] max-985:mx-auto max-985:justify-center max-985:gap-[4%]">
-          {/* Featured Article */}
-          <article className="featured-article w-full flex items-center justify-between mb-11 max-985:mb-6 max-985:flex-col-reverse">
-            <div className="article-textbox basis-[44%] max-985:w-full flex flex-col justify-between">
-              <div>
-                <h3 className="text-[var(--h3)] font-bold text-important mt-[var(--gutter-x-small)] mb-2">
-                  {featuredArticle.title}
+        {hasArticles ? (
+          /* Grid preview — hiển thị tối đa 3 bài mới nhất */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {articles.slice(0, 3).map((article) => (
+              <a
+                key={article.id}
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col rounded-2xl border border-portfolio-border bg-bg-secondary p-6 no-underline transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                style={{ textDecoration: 'none' }}
+              >
+                {article.tags && (
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {article.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2 py-0.5 rounded-full text-xs font-semibold border border-border-dark text-sub"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <h3 className="text-[var(--h4)] font-bold text-important mb-2 group-hover:opacity-75 transition-opacity line-clamp-2">
+                  {article.title}
                 </h3>
-                <p className="text-[var(--text-medium)] text-body my-[var(--gutter-x-small)] leading-relaxed">
-                  {featuredArticle.description}
+                <p className="text-[var(--text-small)] text-body leading-relaxed line-clamp-3 flex-1">
+                  {article.description}
                 </p>
-              </div>
-              <div className="article-info flex justify-start items-center gap-[var(--gutter-medium)] mt-auto pt-2">
-                <Link to="/blog" className="link">
-                  Continue reading
-                </Link>
-                <span className="reaction-count inline-flex items-center gap-[var(--gutter-nano)] text-body text-sm font-medium">
-                  <img
-                    src="assets/images/heart-outline.svg"
-                    alt="heart"
-                    className="w-4 h-4 dark:invert"
-                  />
-                  {featuredArticle.reactionCount}
+                <span className="mt-4 text-sm font-semibold text-sub group-hover:underline">
+                  Đọc trên Notion →
                 </span>
-              </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          /* Empty state — khi chưa có bài viết */
+          <div className="flex flex-col sm:flex-row items-center gap-8 rounded-2xl border border-dashed border-portfolio-border p-10">
+            <span className="text-6xl flex-shrink-0">✍️</span>
+            <div>
+              <h3 className="text-[var(--h4)] font-bold text-important mb-2">
+                Blog đang được xây dựng
+              </h3>
+              <p className="text-[var(--text-small)] text-body leading-relaxed mb-4 max-w-lg">
+                Tôi đang soạn những bài viết đầu tiên về Backend, web development và những thứ tôi học được. Nội dung sẽ được publish trên Notion — hãy ghé lại sớm nhé!
+              </p>
+              <Link to="/blog" className="link text-[var(--text-small)]">
+                Xem trang blog →
+              </Link>
             </div>
-
-            {featuredArticle.imageSrc && (
-              <picture className="article-illustration basis-[50%] max-985:w-full">
-                <img
-                  src={featuredArticle.imageSrc}
-                  alt={featuredArticle.imageAlt || 'Article illustration'}
-                  loading="lazy"
-                  className="w-full h-auto rounded-[var(--gutter-nano)] object-cover"
-                />
-              </picture>
-            )}
-          </article>
-
-          {/* Regular Articles (chỉ hiển thị 2 trên trang chủ) */}
-          {regularArticles.map((article) => (
-            <article
-              key={article.id}
-              className="article-box basis-[31%] border border-portfolio-border p-[var(--gutter-medium)] px-[var(--gutter-small)] rounded-[var(--gutter-nano)] bg-bg-secondary flex flex-col justify-between max-985:basis-[48%] max-650:basis-full max-650:mb-[var(--gutter-x-small)]"
-            >
-              <div className="article-textbox h-full flex flex-col justify-between">
-                <div>
-                  <h4 className="text-[var(--h4)] font-bold text-important mb-2">
-                    {article.title}
-                  </h4>
-                  <p className="text-[var(--text-small)] text-body my-[var(--gutter-x-small)] leading-relaxed">
-                    {article.description}
-                  </p>
-                </div>
-                <div className="article-info flex justify-between items-center mt-auto pt-4">
-                  <Link to="/blog" className="link">
-                    Continue reading
-                  </Link>
-                  <span className="reaction-count inline-flex items-center gap-[var(--gutter-nano)] text-body text-sm font-medium">
-                    <img
-                      src="assets/images/heart-outline.svg"
-                      alt="heart"
-                      loading="lazy"
-                      className="w-4 h-4 dark:invert"
-                    />
-                    {article.reactionCount}
-                  </span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
