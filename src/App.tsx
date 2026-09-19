@@ -41,7 +41,7 @@ export default function App() {
       </main>
 
       {/* Footer section */}
-      <Footer theme={theme} onToggleTheme={toggleTheme} />
+      <Footer />
     </div>
   );
 }
