@@ -1,14 +1,7 @@
 import React from 'react';
 import { socialLinks } from '../data/socialLinks';
-import { ThemeToggle } from './ThemeToggle';
-import type { Theme } from '../hooks/useTheme';
 
-interface FooterProps {
-  theme: Theme;
-  onToggleTheme: () => void;
-}
-
-export const Footer: React.FC<FooterProps> = ({ theme, onToggleTheme }) => {
+export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -41,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ theme, onToggleTheme }) => {
 
           {/* Copyright text */}
           <p className="footer-text text-[var(--text-small)] text-body max-875:text-center m-0">
-            &copy; <span>{currentYear}</span> - Template designed & developed by{' '}
+            &copy; <span>{currentYear}</span> - Template designed &amp; developed by{' '}
             <a
               target="_blank"
               rel="noopener"
@@ -51,9 +44,6 @@ export const Footer: React.FC<FooterProps> = ({ theme, onToggleTheme }) => {
               Đặng Đình Nguyên.
             </a>
           </p>
-
-          {/* Theme Toggle switch */}
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         </div>
       </div>
     </footer>

@@ -1,73 +1,113 @@
 import React, { useEffect, useState } from 'react';
+import { ThemeToggle } from './ThemeToggle';
+import type { Theme } from '../hooks/useTheme';
+
+const NAV_LINKS = [
+  { label: 'Home', href: '#' },
+  { label: 'My Work', href: '#work' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Contact', href: '#contact' },
+];
 
 interface HeaderProps {
-  isNavOpen: boolean;
-  onToggleNav: () => void;
-  menuBtnRef: React.RefObject<HTMLButtonElement | null>;
+  theme: Theme;
+  onToggleTheme: () => void;
   avatarUrl?: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  isNavOpen,
-  onToggleNav,
-  menuBtnRef,
-  avatarUrl = '/assets/images/avatar.png',
+  theme,
+  onToggleTheme,
+  avatarUrl = '/assets/images/avatar.jpg',
 }) => {
-  const [btnText, setBtnText] = useState<'menu' | 'close'>('menu');
   const [avatarSrc, setAvatarSrc] = useState<string>(avatarUrl);
+  const [activeLink, setActiveLink] = useState<string>('#');
 
   useEffect(() => {
     setAvatarSrc(avatarUrl);
   }, [avatarUrl]);
 
-  useEffect(() => {
-    // Đạo hữu xin nương tay! Bí thuật Ẩn Thân 475ms (menu delay) này đang kết nối đồng bộ cùng hư không thuấn di, chớ tự ý sửa đổi kẻo linh thức và thể xác bất đồng bộ!
-    if (isNavOpen) {
-      document.body.classList.add('lock-screen');
-      const timer = setTimeout(() => {
-        setBtnText('close');
-      }, 475);
-      return () => clearTimeout(timer);
-    } else {
-      document.body.classList.remove('lock-screen');
-      const timer = setTimeout(() => {
-        setBtnText('menu');
-      }, 0);
-      return () => clearTimeout(timer);
-    }
-  }, [isNavOpen]);
-
   return (
-    <header className="header-hero-bg min-h-[calc(100vh+var(--radius))] relative w-full flex items-center pb-[var(--radius)] pt-20 lg:pt-14">
-      {/* Menu button container */}
-      <div className="fixed w-full top-[var(--gutter-x-small)] left-0 z-[4] pointer-events-none">
-        <div className="container pointer-events-auto">
-          <button
-            ref={menuBtnRef}
-            type="button"
-            onClick={onToggleNav}
-            aria-label={isNavOpen ? 'Đóng điều hướng' : 'Mở điều hướng'}
-            className="menu-btn ml-auto block border border-border-dark w-[132px] py-[var(--gutter-nano)] rounded-[var(--gutter-large)] bg-bg-secondary text-important font-black text-center cursor-pointer transition-colors duration-200 uppercase tracking-wider"
+    <header className="header-hero-bg min-h-[calc(100vh+var(--radius))] relative w-full flex items-center pb-[var(--radius)] pt-24 lg:pt-20">
+      {/* ── Fixed top-bar: logo/name left, nav center, theme right ── */}
+      <div className="fixed w-full top-0 left-0 z-[4] pointer-events-none">
+        <div
+          className="mx-auto flex items-center justify-between px-6 py-3 pointer-events-auto"
+          style={{ maxWidth: 'var(--site-max-width)' }}
+        >
+          {/* Left: monogram */}
+          <a
+            href="#"
+            className="flex-shrink-0 w-10 h-10 rounded-full bg-important text-bg flex items-center justify-center font-black text-sm select-none"
+            style={{ color: 'var(--bg-color-primary)', backgroundColor: 'var(--important)' }}
+            aria-label="Trang chủ"
           >
-            {btnText}
-          </button>
+            ĐN
+          </a>
+
+          {/* Center: pill nav */}
+          {/* Đạo hữu xin nương tay! Trận pháp Glassmorphism + backdrop-blur này đang cộng hưởng với biến thể sáng/tối, chớ tùy tiện thay màu kẻo âm dương lộn nhào! */}
+          <nav
+            aria-label="Điều hướng chính"
+            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/10 shadow-lg"
+            style={{
+              background: theme === 'dark'
+                ? 'rgba(22, 18, 17, 0.72)'
+                : 'rgba(255, 255, 255, 0.72)',
+              backdropFilter: 'blur(18px)',
+              WebkitBackdropFilter: 'blur(18px)',
+            }}
+          >
+            {NAV_LINKS.map((link) => {
+              const isActive = activeLink === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setActiveLink(link.href)}
+                  className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 no-underline ${
+                    isActive
+                      ? 'bg-important text-bg'
+                      : 'text-sub hover:text-important hover:bg-white/10'
+                  }`}
+                  style={
+                    isActive
+                      ? {
+                          backgroundColor: 'var(--important)',
+                          color: 'var(--bg-color-primary)',
+                        }
+                      : {}
+                  }
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right: theme toggle */}
+          <div className="flex-shrink-0">
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+          </div>
         </div>
       </div>
 
+      {/* ── Hero content ── */}
       <div className="container relative z-[1] w-full py-10 lg:py-0">
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-10 xl:gap-16">
           {/* Cột giới thiệu bản thân */}
           <div className="flex-1 max-w-[720px] text-left max-400:text-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border-dark bg-bg-secondary/70 backdrop-blur-md text-sub text-sm sm:text-base font-semibold mb-3 shadow-sm max-400:mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border-dark bg-bg-secondary/70 backdrop-blur-md text-sub text-sm sm:text-base font-semibold mb-5 shadow-sm max-400:mx-auto">
               <span></span>
               <span>Chào bạn, tôi là</span>
             </div>
 
-            <h1 className="leading-[1.08] tracking-tight mb-4">
-              <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-[4.75rem] xl:text-[5.35rem] font-black text-important drop-shadow-sm">
-                ĐẶNG ĐÌNH NGUYÊN
+            <h1 className="mb-5" style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+              <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-[4.75rem] xl:text-[5.35rem] font-black text-important drop-shadow-sm" style={{ wordSpacing: '0.12em' }}>
+                ĐẶNG ĐÌNH&nbsp;NGUYÊN
               </span>
-              <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl text-sub font-bold mt-2 sm:mt-3">
+              <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl text-sub font-bold mt-3 sm:mt-4">
                 Backend Developer
               </span>
             </h1>
