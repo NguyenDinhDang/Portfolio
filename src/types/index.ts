@@ -26,6 +26,10 @@ export interface ArticleItem {
   isFeatured?: boolean;
   imageSrc?: string;
   imageAlt?: string;
+  /** ISO date string e.g. "2026-09-19" */
+  date?: string;
+  tags?: string[];
+  readTime?: string;
 }
 
 export interface SkillItem {

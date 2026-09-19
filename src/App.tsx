@@ -4,7 +4,6 @@ import { LogoCarousel } from './components/LogoCarousel';
 import { WorkSection } from './components/WorkSection';
 import { BlogSection } from './components/BlogSection';
 import { SkillsSection } from './components/SkillsSection';
-import { TestimonialsSection } from './components/TestimonialsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 
@@ -33,8 +32,6 @@ export default function App() {
         {/* Skills section */}
         <SkillsSection />
 
-        {/* Testimonials section */}
-        <TestimonialsSection />
 
         {/* Contact section */}
         <ContactSection />

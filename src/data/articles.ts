@@ -11,6 +11,9 @@ export const articles: ArticleItem[] = [
     isFeatured: true,
     imageSrc: 'assets/images/featured-blog.webp',
     imageAlt: 'MacBook Pro',
+    date: '2026-08-10',
+    tags: ['CSS', 'Tips', 'Frontend'],
+    readTime: '8 phút đọc',
   },
   {
     id: 'js-default-params',
@@ -19,6 +22,9 @@ export const articles: ArticleItem[] = [
       'In JavaScript when we call a function which expects some data to be passed in if you call that without passing',
     url: 'https://dev.to/devsyedmohsin',
     reactionCount: 47,
+    date: '2026-07-22',
+    tags: ['JavaScript', 'Beginner'],
+    readTime: '4 phút đọc',
   },
   {
     id: 'portfolio-template',
@@ -27,6 +33,9 @@ export const articles: ArticleItem[] = [
       'A beautiful, minimal and accessible portfolio template for Developers which is completely free and Open Source.',
     url: 'https://dev.to/devsyedmohsin/free-open-source-portfolio-template-for-developers-4g1d',
     reactionCount: 177,
+    date: '2026-06-15',
+    tags: ['Open Source', 'Portfolio'],
+    readTime: '5 phút đọc',
   },
   {
     id: 'html-tips',
@@ -35,5 +44,8 @@ export const articles: ArticleItem[] = [
       'In my very last article I shared some JavaScript tips and tricks In this article I will be covering HTML tips and tricks.',
     url: 'https://dev.to/devsyedmohsin',
     reactionCount: 350,
+    date: '2026-05-30',
+    tags: ['HTML', 'Tips'],
+    readTime: '6 phút đọc',
   },
 ];
