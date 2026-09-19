@@ -23,7 +23,7 @@ const ArticleCard: React.FC<{ article: ArticleItem }> = ({ article }) => (
     href={article.url}
     target="_blank"
     rel="noopener noreferrer"
-    className="group flex flex-col rounded-2xl border border-border-dark bg-bg-secondary/60 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 no-underline"
+    className="group flex flex-col rounded-[var(--gutter-nano)] border border-portfolio-border bg-bg-secondary overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 no-underline"
     style={{ textDecoration: 'none' }}
   >
     {/* Cover image */}
@@ -37,16 +37,11 @@ const ArticleCard: React.FC<{ article: ArticleItem }> = ({ article }) => (
         />
       </div>
     ) : (
-      <div
-        className="h-48 flex-shrink-0 flex items-center justify-center text-5xl"
-        style={{ background: 'linear-gradient(135deg, var(--bg-color-secondary) 0%, var(--border) 100%)' }}
-      >
-        ✍️
-      </div>
+      <div className="h-48 flex-shrink-0 bg-bg-secondary border-b border-portfolio-border" />
     )}
 
     {/* Content */}
-    <div className="flex flex-col gap-3 p-5 flex-1">
+    <div className="flex flex-col gap-3 p-[var(--gutter-small)] flex-1">
       {/* Tags */}
       {article.tags && article.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
@@ -61,24 +56,24 @@ const ArticleCard: React.FC<{ article: ArticleItem }> = ({ article }) => (
         </div>
       )}
 
-      <h3 className="text-base font-bold text-important leading-snug group-hover:opacity-75 transition-opacity line-clamp-2">
+      <h3 className="text-[var(--h4)] font-bold text-important leading-snug group-hover:opacity-75 transition-opacity line-clamp-2">
         {article.title}
       </h3>
 
       {article.description && (
-        <p className="text-body text-sm leading-relaxed line-clamp-3 flex-1">
+        <p className="text-[var(--text-small)] text-body leading-relaxed line-clamp-3 flex-1">
           {article.description}
         </p>
       )}
 
       {/* Footer meta */}
-      <div className="flex items-center justify-between pt-3 mt-auto border-t border-border-dark/40 text-xs text-body">
+      <div className="flex items-center justify-between pt-3 mt-auto border-t border-portfolio-border text-xs text-body">
         <div className="flex items-center gap-2">
           {article.date && <span>{formatDate(article.date)}</span>}
-          {article.date && article.readTime && <span className="opacity-30">•</span>}
+          {article.date && article.readTime && <span className="opacity-30">·</span>}
           {article.readTime && <span>{article.readTime}</span>}
         </div>
-        <span className="font-semibold text-sub group-hover:underline">Đọc →</span>
+        <span className="font-semibold text-sub group-hover:underline">Đọc trên Notion</span>
       </div>
     </div>
   </a>
@@ -87,39 +82,33 @@ const ArticleCard: React.FC<{ article: ArticleItem }> = ({ article }) => (
 // ── Empty state ───────────────────────────────────────────────────────────────
 
 const EmptyState: React.FC = () => (
-  <div className="flex flex-col items-center justify-center py-24 text-center gap-6">
-    <div
-      className="w-28 h-28 rounded-3xl flex items-center justify-center text-5xl border border-dashed border-border-dark"
-      style={{ backgroundColor: 'var(--bg-color-secondary)' }}
-    >
-      📝
-    </div>
+  <div className="flex flex-col items-center justify-center py-24 text-center gap-8">
     <div>
-      <h3 className="text-2xl font-bold text-important mb-2">
+      <h3 className="text-[var(--h3)] font-bold text-important mb-3">
         Blog đang được xây dựng
       </h3>
-      <p className="text-body max-w-sm leading-relaxed text-sm">
+      <p className="text-[var(--text-medium)] text-body max-w-md leading-relaxed">
         Chưa có bài viết nào. Tôi đang soạn nội dung — hãy ghé lại sớm nhé!
       </p>
     </div>
 
-    {/* How-to guide card */}
-    <div className="mt-4 rounded-2xl border border-border-dark p-6 max-w-md text-left">
-      <p className="text-xs font-bold uppercase tracking-widest text-sub mb-4">
-        📌 Cách thêm bài viết từ Notion
+    {/* How-to guide */}
+    <div className="rounded-[var(--gutter-nano)] border border-portfolio-border p-[var(--gutter-medium)] max-w-md text-left w-full">
+      <p className="text-xs font-bold uppercase tracking-widest text-sub mb-[var(--gutter-x-small)]">
+        Cách thêm bài viết từ Notion
       </p>
-      <ol className="space-y-3 text-sm text-body list-none p-0 m-0">
-        <li className="flex gap-3">
-          <span className="flex-shrink-0 w-6 h-6 rounded-full border border-border-dark flex items-center justify-center text-xs font-black text-important">1</span>
-          <span>Viết bài xong trên <strong className="text-important">Notion</strong></span>
+      <ol className="space-y-3 text-[var(--text-small)] text-body list-none p-0 m-0">
+        <li className="flex gap-3 items-start">
+          <span className="flex-shrink-0 w-6 h-6 rounded-full border border-border-dark flex items-center justify-center text-xs font-black text-important mt-0.5">1</span>
+          <span>Viết bài xong trên <strong className="text-important font-semibold">Notion</strong></span>
         </li>
-        <li className="flex gap-3">
-          <span className="flex-shrink-0 w-6 h-6 rounded-full border border-border-dark flex items-center justify-center text-xs font-black text-important">2</span>
-          <span>Nhấn <strong className="text-important">Share → Share to web</strong> → Copy link</span>
+        <li className="flex gap-3 items-start">
+          <span className="flex-shrink-0 w-6 h-6 rounded-full border border-border-dark flex items-center justify-center text-xs font-black text-important mt-0.5">2</span>
+          <span>Nhấn <strong className="text-important font-semibold">Share → Share to web</strong> để lấy link công khai</span>
         </li>
-        <li className="flex gap-3">
-          <span className="flex-shrink-0 w-6 h-6 rounded-full border border-border-dark flex items-center justify-center text-xs font-black text-important">3</span>
-          <span>Thêm vào <code className="bg-border-dark/30 px-1.5 py-0.5 rounded text-xs">src/data/articles.ts</code> và deploy</span>
+        <li className="flex gap-3 items-start">
+          <span className="flex-shrink-0 w-6 h-6 rounded-full border border-border-dark flex items-center justify-center text-xs font-black text-important mt-0.5">3</span>
+          <span>Thêm link vào <code className="bg-bg-secondary border border-border-dark px-1.5 py-0.5 rounded text-xs text-important">src/data/articles.ts</code> rồi deploy</span>
         </li>
       </ol>
     </div>
@@ -147,7 +136,7 @@ export const BlogPage: React.FC = () => {
     >
       {/* ── Fixed top-bar ── */}
       <div
-        className="fixed top-0 left-0 w-full z-50 border-b border-border-dark"
+        className="fixed top-0 left-0 w-full z-50 border-b border-portfolio-border"
         style={{
           backgroundColor: theme === 'dark' ? 'rgba(12,10,10,0.88)' : 'rgba(251,251,251,0.88)',
           backdropFilter: 'blur(20px)',
@@ -166,10 +155,10 @@ export const BlogPage: React.FC = () => {
             >
               ĐN
             </span>
-            <span className="text-sm hidden sm:block">← Quay lại Portfolio</span>
+            <span className="text-[var(--text-small)] hidden sm:block">Quay lại Portfolio</span>
           </Link>
 
-          <h1 className="text-base font-bold" style={{ color: 'var(--important)' }}>
+          <h1 className="text-[var(--text-medium)] font-bold" style={{ color: 'var(--important)' }}>
             Blog
           </h1>
 
@@ -178,32 +167,27 @@ export const BlogPage: React.FC = () => {
       </div>
 
       {/* ── Page hero ── */}
-      <section className="pt-32 pb-14 text-center px-4">
-        <p className="text-sub font-semibold text-xs mb-3 tracking-widest uppercase">Góc viết lách của tôi</p>
+      <section className="pt-32 pb-[var(--gutter-x-large)] text-center px-4">
+        <p className="text-sub font-semibold text-xs mb-3 tracking-widest uppercase">Góc viết lách</p>
         <h2
-          className="font-black mb-4"
-          style={{
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            lineHeight: 1.08,
-            letterSpacing: '-0.03em',
-            color: 'var(--important)',
-          }}
+          className="font-black text-important mb-4"
+          style={{ fontSize: 'var(--h1)', lineHeight: 1.08, letterSpacing: '-0.03em' }}
         >
           Chia sẻ kiến thức &amp; kinh nghiệm
         </h2>
-        <p className="max-w-lg mx-auto text-sm leading-relaxed" style={{ color: 'var(--body)' }}>
-          Tôi viết về Backend, web development và những thứ học được qua quá trình làm việc thực tế.
+        <p className="text-body max-w-xl mx-auto text-[var(--text-medium)] leading-relaxed">
+          Tôi viết về Backend, web development và những thứ học được qua quá trình làm việc.
           Mỗi bài là 1 trang Notion — nhấn vào để đọc trực tiếp.
         </p>
       </section>
 
-      <div className="container pb-28">
-        {/* ── Tag filter (chỉ hiện khi có bài) ── */}
+      <div className="container pb-[var(--gutter-huge)]">
+        {/* ── Tag filter (chỉ hiện khi có bài và có tags) ── */}
         {hasArticles && allTags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-[var(--gutter-small)]">
             <button
               onClick={() => setActiveTag(null)}
-              className="px-3.5 py-1.5 rounded-full text-sm font-semibold border transition-all duration-200 cursor-pointer"
+              className="px-[var(--gutter-x-small)] py-[var(--gutter-nano)] rounded-[var(--gutter-large)] text-[var(--text-small)] font-semibold border transition-all duration-200 cursor-pointer"
               style={{
                 borderColor: activeTag === null ? 'var(--important)' : 'var(--border-dark)',
                 color: activeTag === null ? 'var(--important)' : 'var(--sub)',
@@ -215,7 +199,7 @@ export const BlogPage: React.FC = () => {
               <button
                 key={tag}
                 onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-                className="px-3.5 py-1.5 rounded-full text-sm font-semibold border transition-all duration-200 cursor-pointer"
+                className="px-[var(--gutter-x-small)] py-[var(--gutter-nano)] rounded-[var(--gutter-large)] text-[var(--text-small)] font-semibold border transition-all duration-200 cursor-pointer"
                 style={{
                   borderColor: activeTag === tag ? 'var(--important)' : 'var(--border-dark)',
                   color: activeTag === tag ? 'var(--important)' : 'var(--sub)',
@@ -230,13 +214,15 @@ export const BlogPage: React.FC = () => {
         {/* ── Content ── */}
         {hasArticles ? (
           displayed.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[3.5%]">
               {displayed.map((article) => (
                 <ArticleCard key={article.id} article={article} />
               ))}
             </div>
           ) : (
-            <p className="text-center text-body py-16">Không có bài viết nào với tag này.</p>
+            <p className="text-center text-body py-[var(--gutter-huge)] text-[var(--text-medium)]">
+              Không có bài viết nào với tag này.
+            </p>
           )
         ) : (
           <EmptyState />

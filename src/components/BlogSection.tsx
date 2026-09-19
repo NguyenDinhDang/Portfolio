@@ -13,61 +13,63 @@ export const BlogSection: React.FC = () => {
             Blog của tôi
           </h2>
           <Link to="/blog" className="link text-[var(--text-small)] font-semibold">
-            Xem tất cả →
+            Xem tất cả
           </Link>
         </div>
 
         {hasArticles ? (
           /* Grid preview — hiển thị tối đa 3 bài mới nhất */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="article-boxes flex flex-row flex-wrap gap-[3.5%]">
             {articles.slice(0, 3).map((article) => (
               <a
                 key={article.id}
                 href={article.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col rounded-2xl border border-portfolio-border bg-bg-secondary p-6 no-underline transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group article-box basis-[31%] border border-portfolio-border p-[var(--gutter-medium)] px-[var(--gutter-small)] rounded-[var(--gutter-nano)] bg-bg-secondary flex flex-col justify-between max-985:basis-[48%] max-650:basis-full max-650:mb-[var(--gutter-x-small)] no-underline transition-shadow duration-200 hover:shadow-[var(--shadow)]"
                 style={{ textDecoration: 'none' }}
               >
-                {article.tags && (
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {article.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2 py-0.5 rounded-full text-xs font-semibold border border-border-dark text-sub"
-                      >
-                        {t}
-                      </span>
-                    ))}
+                <div className="h-full flex flex-col justify-between">
+                  <div>
+                    {article.tags && (
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {article.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="px-2 py-0.5 rounded-full text-xs font-semibold border border-border-dark text-sub"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <h4 className="text-[var(--h4)] font-bold text-important mb-2 line-clamp-2">
+                      {article.title}
+                    </h4>
+                    <p className="text-[var(--text-small)] text-body leading-relaxed line-clamp-3">
+                      {article.description}
+                    </p>
                   </div>
-                )}
-                <h3 className="text-[var(--h4)] font-bold text-important mb-2 group-hover:opacity-75 transition-opacity line-clamp-2">
-                  {article.title}
-                </h3>
-                <p className="text-[var(--text-small)] text-body leading-relaxed line-clamp-3 flex-1">
-                  {article.description}
-                </p>
-                <span className="mt-4 text-sm font-semibold text-sub group-hover:underline">
-                  Đọc trên Notion →
-                </span>
+                  <div className="article-info flex justify-between items-center mt-auto pt-4">
+                    <span className="link text-[var(--text-small)]">Đọc trên Notion</span>
+                  </div>
+                </div>
               </a>
             ))}
           </div>
         ) : (
-          /* Empty state — khi chưa có bài viết */
-          <div className="flex flex-col sm:flex-row items-center gap-8 rounded-2xl border border-dashed border-portfolio-border p-10">
-            <span className="text-6xl flex-shrink-0">✍️</span>
-            <div>
-              <h3 className="text-[var(--h4)] font-bold text-important mb-2">
-                Blog đang được xây dựng
-              </h3>
-              <p className="text-[var(--text-small)] text-body leading-relaxed mb-4 max-w-lg">
-                Tôi đang soạn những bài viết đầu tiên về Backend, web development và những thứ tôi học được. Nội dung sẽ được publish trên Notion — hãy ghé lại sớm nhé!
-              </p>
-              <Link to="/blog" className="link text-[var(--text-small)]">
-                Xem trang blog →
-              </Link>
-            </div>
+          /* Empty state — khi chưa có bài viết nào */
+          <div className="border border-portfolio-border rounded-[var(--gutter-nano)] p-[var(--gutter-x-large)] max-w-[685px]">
+            <h3 className="text-[var(--h4)] font-bold text-important mb-3">
+              Blog đang được xây dựng
+            </h3>
+            <p className="text-[var(--text-medium)] text-body leading-relaxed mb-[var(--gutter-small)]">
+              Tôi đang soạn những bài viết đầu tiên về Backend và web development.
+              Nội dung sẽ được publish trực tiếp trên Notion — hãy ghé lại sớm nhé!
+            </p>
+            <Link to="/blog" className="link text-[var(--text-small)]">
+              Xem trang blog
+            </Link>
           </div>
         )}
       </div>
