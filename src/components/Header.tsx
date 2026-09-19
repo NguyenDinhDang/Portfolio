@@ -197,8 +197,8 @@ export const Header: React.FC<HeaderProps> = ({
     const sectionEl = document.getElementById(item.id);
     if (!sectionEl) return;
 
-    // Cuộn chính xác tới tiêu đề/header (h2) của section, cách top một khoảng vừa vặn dưới floating navbar
-    const headingEl = sectionEl.querySelector('h2') || sectionEl;
+    // Cuộn chính xác tới tiêu đề/header (h1/h2) của section, cách top một khoảng vừa vặn dưới floating navbar
+    const headingEl = sectionEl.querySelector('h1, h2') || sectionEl;
     const navOffset = 85;
     const targetY = headingEl.getBoundingClientRect().top + window.scrollY - navOffset;
 
