@@ -1,6 +1,6 @@
 import { useTheme } from './hooks/useTheme';
 import { Header } from './components/Header';
-import { LogoCarousel } from './components/LogoCarousel';
+import { TimelineSection } from './components/TimelineSection';
 import { WorkSection } from './components/WorkSection';
 import { BlogSection } from './components/BlogSection';
 import { SkillsSection } from './components/SkillsSection';
@@ -20,8 +20,8 @@ export default function App() {
 
       {/* Main content body with curved top overlap */}
       <main>
-        {/* Logo Carousel - component có thể bật/tắt dễ dàng qua prop enabled */}
-        <LogoCarousel enabled={true} />
+        {/* Timeline học vấn & kinh nghiệm */}
+        <TimelineSection />
 
         {/* Work projects section */}
         <WorkSection />

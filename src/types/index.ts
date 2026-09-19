@@ -9,6 +9,20 @@ export interface ProjectItem {
   imageAlt: string;
 }
 
+export interface TimelineItem {
+  id: string;
+  /** 'education' = học vấn | 'work' = kinh nghiệm làm việc */
+  type: 'education' | 'work';
+  title: string;
+  role: string;
+  period: string;
+  location?: string;
+  description: string;
+  tags?: string[];
+  /** true = hiện tại đang theo học / làm việc */
+  current?: boolean;
+}
+
 export interface TestimonialItem {
   id: string;
   quote: string;
