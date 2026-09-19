@@ -48,6 +48,15 @@ export const Nav: React.FC<NavProps> = ({ isOpen, onClose, toggleBtnRef }) => {
         </li>
         <li className="mb-[var(--gutter-x-small)]">
           <a
+            href="#experience"
+            onClick={handleLinkClick}
+            className="nav-link text-white text-[var(--h2)] font-black no-underline inline-block relative font-stretch-125"
+          >
+            Experience
+          </a>
+        </li>
+        <li className="mb-[var(--gutter-x-small)]">
+          <a
             href="#work"
             onClick={handleLinkClick}
             className="nav-link text-white text-[var(--h2)] font-black no-underline inline-block relative font-stretch-125"

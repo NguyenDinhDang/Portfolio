@@ -147,6 +147,7 @@ html {
   font-family: "Be Vietnam Pro", sans-serif;
   box-sizing: border-box;
   scroll-padding-top: var(--scroll-padding);
+  scroll-behavior: smooth;
 }
 
 body {

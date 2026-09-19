@@ -26,13 +26,25 @@ export const timelineItems: TimelineItem[] = [
     id: 'edu-tvu',
     type: 'education',
     title: 'Đại học Trà Vinh',
-    role: 'Kỹ thuật phần mềm',
-    period: '09/2022 – nay',
+    role: 'Kỹ sư Công nghệ Thông tin',
+    period: '09/2025 – nay',
     location: 'Trà Vinh, Việt Nam',
     description:
       'Học các môn nền tảng về lập trình, cơ sở dữ liệu, mạng máy tính và phát triển ứng dụng web. Tham gia các đồ án nhóm và thực hành với các công nghệ Backend hiện đại.',
-    tags: ['Java', 'C#', 'SQL', 'Spring Boot'],
+    tags: ['HTML', 'CSS', 'JavaScript', 'SQL', 'React', 'Bootstrap', 'Tailwind CSS', 'Git'],
     current: true,
+  },
+  {
+    id: 'edu-12',
+    type: 'education',
+    title: 'THPT Dương Quang Đông',
+    role: 'Tốt nghiệp',
+    period: '09/2022 – 06/2025',
+    location: 'Trà Vinh, Việt Nam',
+    description:
+      'Học các môn nền tảng về lập trình, cơ sở dữ liệu, mạng máy tính và phát triển ứng dụng web. Tham gia các đồ án nhóm và thực hành với các công nghệ Backend hiện đại.',
+    tags: ['Toán', 'Văn', 'Sử', 'Địa', 'Anh'],
+    current: false,
   },
 
   // ── Kinh nghiệm ──────────────────────────────────────────────

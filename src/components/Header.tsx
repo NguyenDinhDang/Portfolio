@@ -4,6 +4,7 @@ import type { Theme } from '../hooks/useTheme';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#' },
+  { label: 'Experience', href: '#experience' },
   { label: 'My Work', href: '#work' },
   { label: 'Blog', href: '#blog' },
   { label: 'Skills', href: '#skills' },

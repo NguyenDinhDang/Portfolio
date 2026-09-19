@@ -197,7 +197,7 @@ export const TimelineSection: React.FC = () => {
       : timelineItems;
 
   return (
-    <section className="pt-[var(--gutter-huge)]">
+    <section id="experience" className="pt-[var(--gutter-huge)]">
       <div className="container">
         {/* Heading */}
         <h2 className="text-[var(--h2)] font-bold text-center text-important mb-[var(--gutter-small)]">

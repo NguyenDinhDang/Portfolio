@@ -36,7 +36,7 @@ export interface ArticleItem {
   title: string;
   description: string;
   url: string;
-  reactionCount: number;
+  reactionCount?: number;
   isFeatured?: boolean;
   imageSrc?: string;
   imageAlt?: string;
