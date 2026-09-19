@@ -29,11 +29,7 @@ export const ContactSection: React.FC = () => {
             </strong>
 
             <p className="contact-text text-body font-light mb-[var(--gutter-small)] leading-relaxed">
-              As a software engineer, I construct web interfaces and design systems with a special love for accessibility and the performance. I tend to code things from scratch and enjoy bringing ideas to life.
-            </p>
-
-            <p className="contact-text text-body font-light mb-[var(--gutter-small)] leading-relaxed">
-              I'm also an open-source developer, and in my spare time, I do digital art with my iPad Pro.
+              Triết lý sống của tôi là: "Chúng ta là những gì chúng ta lặp đi lặp lại. Vì vậy, sự xuất sắc không phải là một hành động, mà là một thói quen." — Aristotle
             </p>
 
             <img

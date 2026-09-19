@@ -9,9 +9,9 @@ export const BlogSection: React.FC = () => {
     <section className="article pt-[var(--gutter-huge)]" id="blog">
       <div className="container">
         <div className="flex items-end justify-between mb-[var(--gutter-x-large)] flex-wrap gap-4">
-          <h2 className="text-[var(--h2)] font-bold text-important">
+          <h1 className="text-[var(--h1)] font-bold text-important">
             Blog của tôi
-          </h2>
+          </h1>
           <Link to="/blog" className="link text-[var(--text-small)] font-semibold">
             Xem tất cả
           </Link>

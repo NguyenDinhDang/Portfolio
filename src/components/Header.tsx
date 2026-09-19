@@ -32,10 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
   const [activeId, setActiveId] = useState<string>('home');
   const [indicatorStyle, setIndicatorStyle] = useState<{
     left: number;
-    top: number;
     width: number;
-    height: number;
-  }>({ left: 0, top: 0, width: 0, height: 0 });
+  }>({ left: 0, width: 0 });
   const [isReady, setIsReady] = useState(false);
 
   const navRef = useRef<HTMLElement | null>(null);
@@ -58,9 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
 
     setIndicatorStyle({
       left: activeRect.left - navRect.left,
-      top: activeRect.top - navRect.top,
       width: activeRect.width,
-      height: activeRect.height,
     });
     setIsReady(true);
   }, [activeId]);
@@ -177,6 +173,8 @@ export const Header: React.FC<HeaderProps> = ({
     e: React.MouseEvent<HTMLAnchorElement>,
     item: NavItem
   ) => {
+    e.preventDefault();
+
     setActiveId(item.id);
     updateIndicator(item.id);
 
@@ -186,15 +184,30 @@ export const Header: React.FC<HeaderProps> = ({
     }
     manualScrollTimeoutRef.current = setTimeout(() => {
       isManualScrollingRef.current = false;
-    }, 750);
+    }, 900);
 
-    if (item.href === '#') {
-      e.preventDefault();
+    if (item.id === 'home' || item.href === '#') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (window.location.hash) {
         history.pushState(null, '', ' ');
       }
+      return;
     }
+
+    const sectionEl = document.getElementById(item.id);
+    if (!sectionEl) return;
+
+    // Cuộn chính xác tới tiêu đề/header (h2) của section, cách top một khoảng vừa vặn dưới floating navbar
+    const headingEl = sectionEl.querySelector('h2') || sectionEl;
+    const navOffset = 85;
+    const targetY = headingEl.getBoundingClientRect().top + window.scrollY - navOffset;
+
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      behavior: 'smooth',
+    });
+
+    history.pushState(null, '', item.href);
   };
 
   return (
@@ -231,11 +244,10 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {/* Sliding Pill Indicator */}
             <div
-              className="absolute rounded-full pointer-events-none z-0"
+              className="absolute inset-y-1.5 left-0 rounded-full pointer-events-none z-0"
               style={{
-                transform: `translate3d(${indicatorStyle.left}px, ${indicatorStyle.top}px, 0)`,
+                transform: `translateX(${indicatorStyle.left}px)`,
                 width: `${indicatorStyle.width}px`,
-                height: `${indicatorStyle.height}px`,
                 backgroundColor: 'var(--important)',
                 opacity: isReady && indicatorStyle.width > 0 ? 1 : 0,
                 transition: isReady
@@ -296,10 +308,38 @@ export const Header: React.FC<HeaderProps> = ({
             </p>
 
             <div className="inline-flex gap-[var(--gutter-x-small)] max-400:flex-col max-400:w-4/5">
-              <a href="#contact" className="btn btn-cta">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById('contact');
+                  if (el) {
+                    const heading = el.querySelector('h2') || el;
+                    window.scrollTo({
+                      top: Math.max(0, heading.getBoundingClientRect().top + window.scrollY - 85),
+                      behavior: 'smooth',
+                    });
+                  }
+                }}
+                className="btn btn-cta"
+              >
                 Thuê tôi
               </a>
-              <a href="#work" className="btn btn-secondary">
+              <a
+                href="#work"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById('work');
+                  if (el) {
+                    const heading = el.querySelector('h2') || el;
+                    window.scrollTo({
+                      top: Math.max(0, heading.getBoundingClientRect().top + window.scrollY - 85),
+                      behavior: 'smooth',
+                    });
+                  }
+                }}
+                className="btn btn-secondary"
+              >
                 Xem công việc của tôi
               </a>
             </div>
