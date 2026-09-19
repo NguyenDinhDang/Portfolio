@@ -12,10 +12,9 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section className="contact pt-[var(--gutter-huge)]">
+    <section id="contact" className="contact pt-[var(--gutter-huge)]">
       <div className="container">
         <h2
-          id="contact"
           className="text-[var(--h2)] font-bold text-center text-important mb-[var(--gutter-x-large)]"
         >
           Send Message
