@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import type { Theme } from '../hooks/useTheme';
 
-const NAV_LINKS = [
-  { label: 'Home', href: '#' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'My Work', href: '#work' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { id: 'home', label: 'Home', href: '#' },
+  { id: 'experience', label: 'Experience', href: '#experience' },
+  { id: 'work', label: 'My Work', href: '#work' },
+  { id: 'blog', label: 'Blog', href: '#blog' },
+  { id: 'skills', label: 'Skills', href: '#skills' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
 ];
 
 interface HeaderProps {
@@ -23,14 +29,176 @@ export const Header: React.FC<HeaderProps> = ({
   avatarUrl = '/assets/images/avatar.jpg',
 }) => {
   const [avatarSrc, setAvatarSrc] = useState<string>(avatarUrl);
-  const [activeLink, setActiveLink] = useState<string>('#');
+  const [activeId, setActiveId] = useState<string>('home');
+  const [indicatorStyle, setIndicatorStyle] = useState<{
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+  }>({ left: 0, top: 0, width: 0, height: 0 });
+  const [isReady, setIsReady] = useState(false);
+
+  const navRef = useRef<HTMLElement | null>(null);
+  const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const isManualScrollingRef = useRef(false);
+  const manualScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const visibleRatiosRef = useRef<Map<string, number>>(new Map());
+
+  // Đạo hữu xin nương tay! Trận pháp "Lăng Ba Vi Bộ" (Sliding Indicator + IntersectionObserver RAF) này đang phong ấn thần thức định vị viewport, chớ dại mà nghịch threshold hay cubic-bezier kẻo thân pháp giật cục, tẩu hỏa nhập ma!
+  const updateIndicator = useCallback((targetId?: string) => {
+    const idToMeasure = targetId || activeId;
+    const navEl = navRef.current;
+    const activeEl = itemRefs.current[idToMeasure];
+
+    if (!navEl || !activeEl) return;
+
+    const navRect = navEl.getBoundingClientRect();
+    const activeRect = activeEl.getBoundingClientRect();
+
+    setIndicatorStyle({
+      left: activeRect.left - navRect.left,
+      top: activeRect.top - navRect.top,
+      width: activeRect.width,
+      height: activeRect.height,
+    });
+    setIsReady(true);
+  }, [activeId]);
 
   useEffect(() => {
     setAvatarSrc(avatarUrl);
   }, [avatarUrl]);
 
+  // Cập nhật vị trí indicator khi activeId thay đổi
+  useEffect(() => {
+    updateIndicator(activeId);
+  }, [activeId, updateIndicator]);
+
+  // Tái tính toán vị trí khi resize window, font load xong hoặc layout nav thay đổi
+  useEffect(() => {
+    const handleRecalculate = () => {
+      requestAnimationFrame(() => updateIndicator());
+    };
+
+    window.addEventListener('resize', handleRecalculate, { passive: true });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(handleRecalculate);
+    }
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (navRef.current && typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(handleRecalculate);
+      resizeObserver.observe(navRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleRecalculate);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, [updateIndicator]);
+
+  // IntersectionObserver phát hiện section đang chiếm phần lớn viewport
+  useEffect(() => {
+    const initialHash = window.location.hash.replace('#', '');
+    const matchedInitial = NAV_ITEMS.find((item) => item.id === initialHash);
+    if (matchedInitial) {
+      setActiveId(matchedInitial.id);
+    }
+
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.id;
+        if (!id) return;
+
+        const viewportHeight = window.innerHeight || 1;
+        const visibleHeight = Math.max(
+          0,
+          Math.min(entry.boundingClientRect.bottom, viewportHeight) -
+            Math.max(entry.boundingClientRect.top, 0)
+        );
+        const viewportFraction = visibleHeight / viewportHeight;
+        const score = Math.max(entry.intersectionRatio, viewportFraction);
+
+        visibleRatiosRef.current.set(id, entry.isIntersecting ? score : 0);
+      });
+
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = requestAnimationFrame(() => {
+        if (isManualScrollingRef.current) return;
+
+        if (window.scrollY < 80) {
+          setActiveId('home');
+          return;
+        }
+
+        const isBottom =
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 50;
+        if (isBottom) {
+          setActiveId('contact');
+          return;
+        }
+
+        let bestId = '';
+        let highestScore = 0;
+
+        NAV_ITEMS.forEach((item) => {
+          const score = visibleRatiosRef.current.get(item.id) || 0;
+          if (score > highestScore) {
+            highestScore = score;
+            bestId = item.id;
+          }
+        });
+
+        if (bestId && highestScore >= 0.35) {
+          setActiveId(bestId);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: [0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0],
+    });
+
+    NAV_ITEMS.forEach((item) => {
+      const el = document.getElementById(item.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+      if (manualScrollTimeoutRef.current) clearTimeout(manualScrollTimeoutRef.current);
+    };
+  }, []);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: NavItem
+  ) => {
+    setActiveId(item.id);
+    updateIndicator(item.id);
+
+    isManualScrollingRef.current = true;
+    if (manualScrollTimeoutRef.current) {
+      clearTimeout(manualScrollTimeoutRef.current);
+    }
+    manualScrollTimeoutRef.current = setTimeout(() => {
+      isManualScrollingRef.current = false;
+    }, 750);
+
+    if (item.href === '#') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.location.hash) {
+        history.pushState(null, '', ' ');
+      }
+    }
+  };
+
   return (
-    <header className="header-hero-bg min-h-[calc(100vh+var(--radius))] relative w-full flex items-center pb-[var(--radius)] pt-24 lg:pt-20">
+    <header id="home" className="header-hero-bg min-h-[calc(100vh+var(--radius))] relative w-full flex items-center pb-[var(--radius)] pt-24 lg:pt-20">
       {/* ── Fixed top-bar: logo/name left, nav center, theme right ── */}
       <div className="fixed w-full top-0 left-0 z-[4] pointer-events-none">
         <div
@@ -47,41 +215,54 @@ export const Header: React.FC<HeaderProps> = ({
             ĐN
           </a>
 
-          {/* Center: pill nav — absolutely centered so left/right widths don't affect it */}
-          {/* Đạo hữu xin nương tay! Trận pháp Glassmorphism + backdrop-blur này đang cộng hưởng với biến thể sáng/tối, chớ tùy tiện thay màu kẻo âm dương lộn nhào! */}
+          {/* Center: pill nav with sliding indicator */}
           <nav
+            ref={navRef}
             aria-label="Điều hướng chính"
-            className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-3 py-1.5 rounded-full border border-white/10 shadow-lg"
+            className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1.5 rounded-full border border-white/10 shadow-lg relative"
             style={{
-              background: theme === 'dark'
-                ? 'rgba(22, 18, 17, 0.72)'
-                : 'rgba(255, 255, 255, 0.72)',
+              background:
+                theme === 'dark'
+                  ? 'rgba(22, 18, 17, 0.72)'
+                  : 'rgba(255, 255, 255, 0.72)',
               backdropFilter: 'blur(18px)',
               WebkitBackdropFilter: 'blur(18px)',
             }}
           >
-            {NAV_LINKS.map((link) => {
-              const isActive = activeLink === link.href;
+            {/* Sliding Pill Indicator */}
+            <div
+              className="absolute rounded-full pointer-events-none z-0"
+              style={{
+                transform: `translate3d(${indicatorStyle.left}px, ${indicatorStyle.top}px, 0)`,
+                width: `${indicatorStyle.width}px`,
+                height: `${indicatorStyle.height}px`,
+                backgroundColor: 'var(--important)',
+                opacity: isReady && indicatorStyle.width > 0 ? 1 : 0,
+                transition: isReady
+                  ? 'transform 500ms cubic-bezier(0.22, 1, 0.36, 1), width 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease'
+                  : 'opacity 250ms ease',
+                willChange: 'transform, width',
+              }}
+              aria-hidden="true"
+            />
+
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeId === item.id;
               return (
                 <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setActiveLink(link.href)}
-                  className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 no-underline ${
-                    isActive
-                      ? 'bg-important text-bg'
-                      : 'text-sub hover:text-important hover:bg-white/10'
-                  }`}
-                  style={
-                    isActive
-                      ? {
-                          backgroundColor: 'var(--important)',
-                          color: 'var(--bg-color-primary)',
-                        }
-                      : {}
-                  }
+                  key={item.id}
+                  ref={(el) => {
+                    itemRefs.current[item.id] = el;
+                  }}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className="relative z-10 px-3.5 py-1.5 rounded-full text-sm font-semibold no-underline select-none"
+                  style={{
+                    color: isActive ? 'var(--bg-color-primary)' : 'var(--sub)',
+                    transition: 'color 400ms ease',
+                  }}
                 >
-                  {link.label}
+                  {item.label}
                 </a>
               );
             })}
