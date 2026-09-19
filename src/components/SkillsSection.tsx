@@ -3,10 +3,9 @@ import { skills } from '../data/skills';
 
 export const SkillsSection: React.FC = () => {
   return (
-    <section className="skills pt-[var(--gutter-huge)]">
+    <section id="skills" className="skills pt-[var(--gutter-huge)]">
       <div className="container">
         <h2
-          id="skills"
           className="text-[var(--h2)] font-bold text-center text-important mb-[var(--gutter-x-large)]"
         >
           Những công nghệ của tôi
