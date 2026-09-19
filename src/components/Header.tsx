@@ -33,24 +33,24 @@ export const Header: React.FC<HeaderProps> = ({
       {/* ── Fixed top-bar: logo/name left, nav center, theme right ── */}
       <div className="fixed w-full top-0 left-0 z-[4] pointer-events-none">
         <div
-          className="mx-auto flex items-center justify-between px-6 py-3 pointer-events-auto"
+          className="mx-auto flex items-center justify-between px-6 py-3 pointer-events-auto relative"
           style={{ maxWidth: 'var(--site-max-width)' }}
         >
           {/* Left: monogram */}
           <a
             href="#"
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-important text-bg flex items-center justify-center font-black text-sm select-none"
+            className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-black text-sm select-none"
             style={{ color: 'var(--bg-color-primary)', backgroundColor: 'var(--important)' }}
             aria-label="Trang chủ"
           >
             ĐN
           </a>
 
-          {/* Center: pill nav */}
+          {/* Center: pill nav — absolutely centered so left/right widths don't affect it */}
           {/* Đạo hữu xin nương tay! Trận pháp Glassmorphism + backdrop-blur này đang cộng hưởng với biến thể sáng/tối, chớ tùy tiện thay màu kẻo âm dương lộn nhào! */}
           <nav
             aria-label="Điều hướng chính"
-            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/10 shadow-lg"
+            className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-3 py-1.5 rounded-full border border-white/10 shadow-lg"
             style={{
               background: theme === 'dark'
                 ? 'rgba(22, 18, 17, 0.72)'
@@ -98,16 +98,13 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-10 xl:gap-16">
           {/* Cột giới thiệu bản thân */}
           <div className="flex-1 max-w-[720px] text-left max-400:text-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border-dark bg-bg-secondary/70 backdrop-blur-md text-sub text-sm sm:text-base font-semibold mb-5 shadow-sm max-400:mx-auto">
-              <span></span>
-              <span>Chào bạn, tôi là</span>
-            </div>
 
-            <h1 className="mb-5" style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-              <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-[4.75rem] xl:text-[5.35rem] font-black text-important drop-shadow-sm" style={{ wordSpacing: '0.12em' }}>
-                ĐẶNG ĐÌNH&nbsp;NGUYÊN
+
+            <h1 className="mb-5 whitespace-nowrap" style={{ lineHeight: 1.08, letterSpacing: '-0.03em' }}>
+              <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black text-important drop-shadow-sm">
+                ĐẶNG ĐÌNH NGUYÊN
               </span>
-              <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl text-sub font-bold mt-3 sm:mt-4">
+              <span className="block text-lg sm:text-xl md:text-2xl lg:text-3xl text-sub font-bold mt-2 sm:mt-3">
                 Backend Developer
               </span>
             </h1>
