@@ -16,7 +16,7 @@ export const socialLinks: SocialLinkItem[] = [
   {
     id: 'linkedin',
     title: 'Linkedin',
-    url: 'https://www.linkedin.com/in/syed-mohisn-raza-393177262/',
+    url: 'https://www.linkedin.com/in/dangdinhnguyen07',
     iconSrc: 'assets/images/social-links/linkedin.svg',
   },
   {

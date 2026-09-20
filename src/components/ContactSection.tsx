@@ -87,7 +87,7 @@ export const ContactSection: React.FC = () => {
                   htmlFor="message"
                   className="block text-important text-[var(--text-small)] mb-[var(--gutter-nano)] ml-[var(--gutter-nano)]"
                 >
-                  How can I help you?
+                  Tôi có thể giúp gì cho bạn?
                 </label>
                 <textarea
                   name="message"

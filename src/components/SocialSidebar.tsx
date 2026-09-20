@@ -32,7 +32,7 @@ export const defaultSocialItems: SocialItem[] = [
   {
     id: 'linkedin',
     name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/syed-mohisn-raza-393177262/',
+    url: 'https://www.linkedin.com/in/dangdinhnguyen07',
     Icon: FaLinkedinIn,
     ariaLabel: 'Trang LinkedIn của Đặng Đình Nguyên',
   },
