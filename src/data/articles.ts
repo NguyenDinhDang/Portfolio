@@ -25,13 +25,13 @@ import type { ArticleItem } from '../types';
 export const articles: ArticleItem[] = [
   {
     id: 'article-one',
-    title: 'Bài viết đầu tiên của bạn sẽ ở đây',
-    description: 'Đây là nơi bạn sẽ chia sẻ kiến thức, kinh nghiệm và góc nhìn của mình với cộng đồng. Hãy bắt đầu ngay nhé!',
-    url: '#',
+    title: 'Blog: Mưa nhà và mưa phố',
+    description: 'Một góc nhìn về hai chiều cảm xúc giữa hai không gian đối lập.',
+    url: 'https://ma-nh-v-ph.super.site/',
     date: new Date().toISOString().split('T')[0],
-    tags: ['Giới thiệu'],
-    readTime: '3 phút đọc',
-    imageSrc: 'https://images.unsplash.com/photo-1516402408414-c9b357b642a6?w=800&h=400&fit=crop',
+    tags: ['Tản văn', 'Chiêm nghiệm', 'Cuộc sống'],
+    readTime: '5 phút đọc',
+    imageSrc: 'assets/images/blog/nha_va_pho.jpg',
   },
   {
     id: 'article-two',
@@ -41,7 +41,7 @@ export const articles: ArticleItem[] = [
     date: new Date().toISOString().split('T')[0],
     tags: ['Giới thiệu'],
     readTime: '3 phút đọc',
-    imageSrc: 'https://images.unsplash.com/photo-1516402408414-c9b357b642a6?w=800&h=400&fit=crop',
+    imageSrc: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'article-three',
@@ -51,6 +51,6 @@ export const articles: ArticleItem[] = [
     date: new Date().toISOString().split('T')[0],
     tags: ['Giới thiệu'],
     readTime: '3 phút đọc',
-    imageSrc: 'https://images.unsplash.com/photo-1516402408414-c9b357b642a6?w=800&h=400&fit=crop',
+    imageSrc: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80',
   }
 ];

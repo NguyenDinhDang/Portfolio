@@ -29,6 +29,16 @@ export const BlogSection: React.FC = () => {
                 className="group article-box basis-[31%] border border-portfolio-border p-[var(--gutter-medium)] px-[var(--gutter-small)] rounded-[var(--gutter-nano)] bg-bg-secondary flex flex-col justify-between max-985:basis-[48%] max-650:basis-full max-650:mb-[var(--gutter-x-small)] no-underline transition-shadow duration-200 hover:shadow-[var(--shadow)]"
                 style={{ textDecoration: 'none' }}
               >
+                {article.imageSrc && (
+                  <div className="-mx-[var(--gutter-small)] -mt-[var(--gutter-medium)] mb-4 h-40 overflow-hidden">
+                    <img
+                      src={article.imageSrc}
+                      alt={article.imageAlt || article.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
                 <div className="h-full flex flex-col justify-between">
                   <div>
                     {article.tags && (
