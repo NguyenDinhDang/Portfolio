@@ -6,6 +6,7 @@ import { BlogSection } from './components/BlogSection';
 import { SkillsSection } from './components/SkillsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { SocialSidebar } from './components/SocialSidebar';
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
@@ -39,6 +40,9 @@ export default function App() {
 
       {/* Footer section */}
       <Footer />
+
+      {/* Social sidebar — fixed phải màn hình (desktop), ngang footer (mobile) */}
+      <SocialSidebar />
     </div>
   );
 }

@@ -32,12 +32,7 @@ export const ContactSection: React.FC = () => {
               Triết lý sống của tôi là: "Chúng ta là những gì chúng ta lặp đi lặp lại. Vì vậy, sự xuất sắc không phải là một hành động, mà là một thói quen." — Aristotle
             </p>
 
-            <img
-              src="assets/images/signatures.png"
-              alt="Syed Mohsin"
-              className="signatures w-[150px] light:invert"
-              loading="lazy"
-            />
+            
           </div>
 
           {/* Right contact form */}

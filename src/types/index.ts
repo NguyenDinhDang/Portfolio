@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export interface ProjectItem {
   id: string;
   title: string;
@@ -58,4 +60,6 @@ export interface SocialLinkItem {
   title: string;
   url: string;
   iconSrc: string;
+  /** React icon component (dùng cho SocialSidebar) */
+  icon?: ReactNode;
 }
