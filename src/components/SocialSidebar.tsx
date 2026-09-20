@@ -5,6 +5,7 @@ import {
   FaTwitter,
   FaCodepen,
 } from 'react-icons/fa';
+import { SiZalo } from 'react-icons/si';
 import type { IconType } from 'react-icons';
 
 // ═══════════════════════════════════════════════════════════════
@@ -49,6 +50,13 @@ export const defaultSocialItems: SocialItem[] = [
     url: 'https://codepen.io/',
     Icon: FaCodepen,
     ariaLabel: 'Trang CodePen của Đặng Đình Nguyên',
+  },
+  {
+    id: 'zalo',
+    name: 'Zalo',
+    url: 'https://zalo.me/0000000000',
+    Icon: SiZalo,
+    ariaLabel: 'Nhắn tin Zalo với Đặng Đình Nguyên',
   },
 ];
 
