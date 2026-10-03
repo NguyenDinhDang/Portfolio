@@ -25,7 +25,7 @@ export const projects: ProjectItem[] = [
     id: 'data-analysis',
     title: 'Data analysis',
     description: 'Hệ thống bóc tách số liệu và phân tích dữ liệu từ khảo sát để nghiên cứu và đưa ra các quyết định kinh doanh chính xác hơn',
-    technologies: ['NextJS', 'Tailwind CSS', 'Material UI'],
+    technologies: ['Python', 'Streamlit', 'Mathplotlib', 'Pandas', 'NumPy', 'Seaborn'],
     liveUrl: '#',
     githubUrl: 'https://github.com/NguyenDinhDang',
     imageSrc: 'assets/images/work/Phan_tich.png',
