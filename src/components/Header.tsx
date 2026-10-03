@@ -219,14 +219,14 @@ export const Header: React.FC<HeaderProps> = ({
           style={{ maxWidth: 'var(--site-max-width)' }}
         >
           {/* Left: monogram */}
-          <a
+          {/*<a
             href="#"
             className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-black text-sm select-none"
             style={{ color: 'var(--bg-color-primary)', backgroundColor: 'var(--important)' }}
             aria-label="Trang chủ"
           >
             ĐN
-          </a>
+          </a>*/}
 
           {/* Center: pill nav with sliding indicator */}
           <nav
@@ -323,7 +323,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }}
                 className="btn btn-cta"
               >
-                Thuê tôi
+                Liên hệ hợp tác
               </a>
               <a
                 href="#work"
@@ -340,7 +340,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }}
                 className="btn btn-secondary"
               >
-                Xem công việc của tôi
+                Khám phá dự án
               </a>
             </div>
           </div>
