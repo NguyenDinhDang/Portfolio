@@ -1,15 +1,62 @@
 import React, { useState } from 'react';
 
-export const ContactSection: React.FC = () => {
-  const [submitted, setSubmitted] = useState(false);
+type Status = 'idle' | 'loading' | 'success' | 'error';
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // Để tích hợp với các dịch vụ form như Netlify/Formspree:
-    // Form đã có thuộc tính name="contact" và data-netlify="true"
-    // Nếu bạn muốn tự xử lý API backend thì cấu hình fetch() tại đây
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+// Đặt trong file .env: VITE_WEB3FORMS_KEY=your_access_key
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+
+export const ContactSection: React.FC = () => {
+  const [status, setStatus] = useState<Status>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (status === 'loading') return;
+
+    // Lưu tham chiếu trước await, vì sau đó e.currentTarget sẽ là null
+    const form = e.currentTarget;
+
+    if (!ACCESS_KEY) {
+      setStatus('error');
+      setErrorMsg('Thiếu access key. Kiểm tra biến VITE_WEB3FORMS_KEY.');
+      return;
+    }
+
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const formData = new FormData(form);
+      formData.append('access_key', ACCESS_KEY);
+
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus('success');
+        form.reset();
+        // Trả nút về trạng thái ban đầu sau 5 giây
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setErrorMsg(data.message || 'Gửi thất bại, vui lòng thử lại.');
+      }
+    } catch {
+      setStatus('error');
+      setErrorMsg('Không thể kết nối. Kiểm tra mạng và thử lại.');
+    }
   };
+
+  const buttonLabel =
+    status === 'loading'
+      ? 'Đang gửi...'
+      : status === 'success'
+      ? 'Đã gửi thành công!'
+      : 'Gửi';
 
   return (
     <section id="contact" className="contact pt-[var(--gutter-huge)]">
@@ -17,7 +64,7 @@ export const ContactSection: React.FC = () => {
         <h2
           className="text-[var(--h2)] font-bold text-center text-important mb-[var(--gutter-x-large)]"
         >
-          Send Message
+          Gửi
         </h2>
 
         <div className="contact-content grid grid-cols-[minmax(245px,35%)_1fr] my-[var(--gutter-x-large)] border border-portfolio-border rounded-[var(--gutter-nano)] overflow-hidden max-1032:flex max-1032:flex-col-reverse max-1032:max-w-[845px] max-1032:mx-auto">
@@ -25,26 +72,32 @@ export const ContactSection: React.FC = () => {
           <div className="contact-textbox p-[var(--gutter-large)] px-[var(--gutter-small)] bg-bg-primary">
             <strong className="hire-alert mb-[var(--gutter-small)]">
               <span className="hire-indicator mr-2" />
-              Available for hire
+              Sẵn sàng nhận việc
             </strong>
 
             <p className="contact-text text-body font-light mb-[var(--gutter-small)] leading-relaxed">
               Triết lý sống của tôi là: "Chúng ta là những gì chúng ta lặp đi lặp lại. Vì vậy, sự xuất sắc không phải là một hành động, mà là một thói quen." — Aristotle
             </p>
-
-            
           </div>
 
           {/* Right contact form */}
           <form
             name="contact"
-            method="POST"
-            data-netlify="true"
             onSubmit={handleSubmit}
             className="contact-form p-[var(--gutter-large)] px-[var(--gutter-small)] bg-bg-secondary flex flex-col justify-between"
           >
-            {/* Netlify form hidden input */}
-            <input type="hidden" name="form-name" value="contact" />
+            {/* Tiêu đề mail và tên người gửi hiển thị trong hộp thư của bạn */}
+            <input type="hidden" name="subject" value="Tin nhắn mới từ Portfolio" />
+            <input type="hidden" name="from_name" value="Portfolio Contact Form" />
+
+            {/* Honeypot chống bot: người thật không thấy, bot tự tick thì bị từ chối */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
 
             <div>
               <div className="form-field mb-[var(--gutter-small)]">
@@ -101,9 +154,21 @@ export const ContactSection: React.FC = () => {
             </div>
 
             <div className="pt-2">
-              <button type="submit" className="btn btn-cta border-0">
-                {submitted ? 'Đã gửi thành công!' : 'Send'}
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="btn btn-cta border-0 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {buttonLabel}
               </button>
+
+              <p
+                role="status"
+                aria-live="polite"
+                className="mt-2 text-[var(--text-small)] text-sub min-h-[1.25rem]"
+              >
+                {status === 'error' && errorMsg}
+              </p>
             </div>
           </form>
         </div>
