@@ -64,7 +64,7 @@ export const ContactSection: React.FC = () => {
         <h2
           className="text-[var(--h2)] font-bold text-center text-important mb-[var(--gutter-x-large)]"
         >
-          Gửi
+          Liên hệ với tôi
         </h2>
 
         <div className="contact-content grid grid-cols-[minmax(245px,35%)_1fr] my-[var(--gutter-x-large)] border border-portfolio-border rounded-[var(--gutter-nano)] overflow-hidden max-1032:flex max-1032:flex-col-reverse max-1032:max-w-[845px] max-1032:mx-auto">
