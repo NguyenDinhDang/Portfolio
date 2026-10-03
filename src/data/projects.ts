@@ -2,16 +2,6 @@ import type { ProjectItem } from '../types';
 
 export const projects: ProjectItem[] = [
   {
-    id: 'crush',
-    title: 'Landing page Tỏ tình',
-    description: 'Tỏ tình với cô gái tôi yêu',
-    technologies: ['HTML', 'CSS', 'JavaScript'],
-    liveUrl: 'https://nguyendinhdang.github.io/Crush/',
-    githubUrl: 'https://github.com/nguyendinhdang/Crush',
-    imageSrc: 'assets/images/work/portfolio-template.webp',
-    imageAlt: 'portfolio template',
-  },
-  {
     id: 'website-ai',
     title: 'Education Website',
     description: 'WebsiteAI',
@@ -30,5 +20,15 @@ export const projects: ProjectItem[] = [
     githubUrl: 'https://github.com/NguyenDinhDang/TKW-DA25TTD-110125113-E-Commerce.git',
     imageSrc: 'assets/images/work/ecommece.png',
     imageAlt: 'e-commerce',
+  },
+  {
+    id: 'data-analysis',
+    title: 'Data analysis',
+    description: 'Hệ thống bóc tách số liệu và phân tích dữ liệu từ khảo sát để nghiên cứu và đưa ra các quyết định kinh doanh chính xác hơn',
+    technologies: ['NextJS', 'Tailwind CSS', 'Material UI'],
+    liveUrl: '#',
+    githubUrl: 'https://github.com/NguyenDinhDang',
+    imageSrc: 'assets/images/work/Phan_tich.png',
+    imageAlt: 'Data analysis',
   },
 ];

@@ -42,7 +42,7 @@ export const timelineItems: TimelineItem[] = [
     period: '09/2022 – 06/2025',
     location: 'Trà Vinh, Việt Nam',
     description:
-      'Học các môn nền tảng về lập trình, cơ sở dữ liệu, mạng máy tính và phát triển ứng dụng web. Tham gia các đồ án nhóm và thực hành với các công nghệ Backend hiện đại.',
+      'Học tập nền tảng về các môn Toán, Văn, Sử, Địa và Anh. Tham gia các hoạt động ngoại khóa và phát triển kỹ năng mềm.',
     tags: ['Toán', 'Văn', 'Sử', 'Địa', 'Anh'],
     current: false,
   },
