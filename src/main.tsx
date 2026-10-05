@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
 import App from './App'
 import { BlogPage } from './pages/BlogPage'
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/blog" element={<BlogPage />} />
       </Routes>
       <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   </StrictMode>,
 )
